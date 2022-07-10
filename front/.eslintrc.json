@@ -43,6 +43,9 @@
       }
     ],
     "react/jsx-one-expression-per-line": "off",
-    "linebreak-style": ["off", "windows"]
+    "linebreak-style": ["off", "windows"],
+    "comma-dangle": ["error", {
+      "imports": "never"
+    }]
   }
 }
