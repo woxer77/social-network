@@ -1,0 +1,45 @@
+@import './src/styles/scss/config-styles/vars';
+
+.post-adding {
+  height: 150px;
+  background-color: $white;
+  padding: 15px;
+  border-radius: 20px;
+
+  .top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .icon {
+      margin-right: 15px;
+    }
+  }
+
+  .bot {
+    display: flex;
+
+    .addition-block {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .addition-text {
+        font-size: 17px;
+        font-weight: 700;
+        margin-left: 12px;
+      }
+    }
+
+    .button {
+      width: 100%;
+      max-width: 130px;
+      margin: 0 0 0 auto;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+@import './src/styles/scss/config-styles/vars';
+
+.left-sidebar {
+  position: fixed;
+
+  width: $left-sidebar-width;
+  height: 100vh;
+  top: $header-height;
+  left: 0;
+  z-index: $z-index-left-sidebar;
+
+  background-color: $white;
+
+  .nav {
+    padding: 8px 20px 8px 20px;
+
+    .nav-item {
+      height: 45px;
+      border-radius: 7px;
+      padding: 15px;
+      margin-bottom: 10px;
+
+      color: inherit;
+
+      display: flex;
+      align-items: center;
+
+      transition: background-color 0.5s;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        background-color: rgba(78,93,120,0.3);
+      }
+
+      .nav-icon {
+        svg {
+          width: 26px;
+          height: 26px;
+          margin-right: 20px;
+        }
+      }
+
+      .nav-text {
+        font-size: 17px;
+        font-weight: 700;
+      }
+    }
+
+    .nav-item_active {
+      background-color: $dark-gray;
+      color: $white;
+
+      &:hover {
+        background-color: $dark-gray;
+      }
+
+      .nav-text {
+        color: $white;
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@import './src/styles/scss/config-styles/vars';
+
+.right-sidebar {
+  position: fixed;
+
+  width: $right-sidebar-width;
+  top: $header-height;
+  right: 0;
+  z-index: $z-index-right-sidebar;
+
+  background-color: $white;
+
+  .wrapper {
+    padding: 20px;
+
+    .search {
+      margin-bottom: 20px;
+    }
+
+    .friends {
+      .top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .title {
+          font-size: 17px;
+          font-weight: 800;
+        }
+
+        .ellipsis {
+          cursor: pointer;
+        }
+      }
+
+      .list {
+        .friend-block {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+          border-radius: 7px;
+          padding: 10px;
+          cursor: pointer;
+          box-sizing: border-box;
+
+          transition: background-color 0.5s;
+
+          &:hover {
+            background-color: rgba(78,93,120,0.3);
+          }
+
+          .name {
+            font-size: 17px;
+            font-weight: 800;
+          }
+
+          .status {
+            font-size: 13px;
+            font-weight: 600;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

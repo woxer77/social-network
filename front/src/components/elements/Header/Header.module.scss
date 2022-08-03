@@ -1,0 +1,68 @@
+@import './src/styles/scss/config-styles/vars';
+
+.header {
+  position: fixed;
+
+  width: 100%;
+  height: $header-height;
+  top: 0;
+  right: 0;
+  z-index: $z-index-header;
+
+  background-color: $white;
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      width: 220px;
+
+      .logo-icon {
+        margin-right: 10px;
+
+        svg {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      .logo-title {
+        font-size: 21px;
+        font-weight: 800;
+      }
+    }
+
+    .profile {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 292px;
+
+      .profile-name {
+        font-size: 17px;
+        font-weight: 700;
+        margin-right: 20px;
+        word-break: break-all;
+      }
+
+      .profile-icon {
+        border-radius: 8px;
+      }
+    }
+
+    .search-wrapper {
+
+
+      .search {
+        width: 70%;
+        max-width: 540px;
+      }
+    }
+  }
+}
+
+

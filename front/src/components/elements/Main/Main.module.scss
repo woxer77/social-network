@@ -1,0 +1,29 @@
+@import './src/styles/scss/config-styles/vars';
+
+.main {
+  margin-top: $header-height;
+  margin-left: $left-sidebar-width;
+  margin-right: $right-sidebar-width;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  background-color: $main-bg-color;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    max-width: $main-container-width;
+    padding: $main-container-padding;
+    margin: auto;
+
+    .posts {
+      flex-basis: 62%; /* 62% экрана занимает конкретно блок с постами */
+      margin-right: 30px;
+    }
+
+    .events {
+      flex-basis: 35%; /* 35% экрана занимает конкретно блок с ивентами */
+    }
+  }
+}

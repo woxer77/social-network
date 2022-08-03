@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import './styles/scss/index.scss';
+
+import Header from './components/elements/Header/Header';
+import LeftSidebar from './components/elements/LeftSidebar/LeftSidebar';
+import RightSidebar from './components/elements/RightSidebar/RightSidebar';
+import Main from './components/elements/Main/Main';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ErrorBoundary>
+      <div className="page">
+        <Header />
+        <LeftSidebar />
+        <RightSidebar />
+        <Main />
+      </div>
+    </ErrorBoundary>
   );
 }
 

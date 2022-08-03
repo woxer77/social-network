@@ -1,0 +1,66 @@
+@import 'config-styles/reset.scss'; // Подключение файла обнуляющих стилей
+@import 'config-styles/_vars.scss'; // Подключение файла с переменными
+
+@font-face {
+  font-family: 'Araboto';
+  font-weight: 400;
+  src: local('Araboto'), url(../../assets/fonts/Araboto-Thin-400.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Araboto';
+  font-weight: 600;
+  src: local('Araboto'), url(../../assets/fonts/Araboto-Normal-400.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Araboto';
+  font-weight: 700;
+  src: local('Araboto'), url(../../assets/fonts/Araboto-Medium-400.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Araboto';
+  font-weight: 500;
+  src: local('Araboto'), url(../../assets/fonts/Araboto-Light-400.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Araboto';
+  font-weight: 800;
+  src: local('Araboto'), url(../../assets/fonts/Araboto-Bold-400.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Araboto';
+  font-weight: 900;
+  src: local('Araboto'), url(../../assets/fonts/Araboto-Black-400.ttf) format('truetype');
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+// Body
+
+body {
+  background-color: $white;
+  font-family: Araboto, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+  "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+  "Noto Color Emoji";
+}
+
+.page {
+  overflow: hidden;
+  color: $dark-gray;
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 20px;
+
+  cursor: pointer;
+}

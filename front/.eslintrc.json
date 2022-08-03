@@ -46,6 +46,9 @@
     "linebreak-style": ["off", "windows"],
     "comma-dangle": ["error", {
       "imports": "never"
-    }]
+    }],
+    "react/jsx-props-no-spreading": "warn",
+    "import/no-named-as-default": "warn",
+    "import/no-named-as-default-member": "warn"
   }
 }
