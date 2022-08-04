@@ -19,7 +19,7 @@
     .logo {
       display: flex;
       align-items: center;
-      width: 220px;
+      width: $left-sidebar-width - 20;
 
       .logo-icon {
         margin-right: 10px;
@@ -40,7 +40,6 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      width: 292px;
 
       .profile-name {
         font-size: 17px;
@@ -55,10 +54,10 @@
     }
 
     .search-wrapper {
-
+      width: 40%;
+      margin-right: auto;
 
       .search {
-        width: 70%;
         max-width: 540px;
       }
     }
