@@ -1,0 +1,12 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EBF2FF;
+  cursor: pointer;
+  border-radius: 5px;
+
+  svg {
+    color: #377DFF;
+  }
+}

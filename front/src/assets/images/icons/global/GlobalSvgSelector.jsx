@@ -12,6 +12,11 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SearchIcon from '@mui/icons-material/Search';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import ReplyAllOutlinedIcon from '@mui/icons-material/ReplyAllOutlined';
+import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 import selectorProps from '../../../../propTypes/GlobalSvgSelector/selectorProps';
 
@@ -102,6 +107,31 @@ function GlobalSvgSelector({ id }) {
   case 'happySmile': {
     return (
       <SentimentSatisfiedOutlinedIcon />
+    );
+  }
+  case 'like': {
+    return (
+      <FavoriteBorderOutlinedIcon />
+    );
+  }
+  case 'comment': {
+    return (
+      <ModeCommentOutlinedIcon />
+    );
+  }
+  case 'share': {
+    return (
+      <ReplyAllOutlinedIcon />
+    );
+  }
+  case 'gif': {
+    return (
+      <GifBoxOutlinedIcon />
+    );
+  }
+  case 'send': {
+    return (
+      <SendOutlinedIcon />
     );
   }
 

@@ -1,15 +1,18 @@
 import React from 'react';
+
 import styles from './Main.module.scss';
+
 import PostAdding from '../PostAdding/PostAdding';
+import Post from '../Post/Post';
 
 function Main() {
-  // TODO: Сделать компонент самого поста
   // TODO: Сделать компонент ивентов
   return (
     <main className={styles.main}>
       <div className={styles.container}>
         <div className={styles.posts}>
           <PostAdding />
+          <Post />
         </div>
         <div className={styles.events}>
           <div>event 1</div>

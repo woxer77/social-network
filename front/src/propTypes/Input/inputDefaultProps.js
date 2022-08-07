@@ -1,4 +1,4 @@
 module.exports = {
   customClassName: '',
-  customPlaceholder: 'Search...'
+  withButtons: null
 };

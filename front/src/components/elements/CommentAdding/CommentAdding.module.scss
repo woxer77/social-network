@@ -1,0 +1,13 @@
+.comment-adding {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .comment-input {
+    margin: 0 10px 0 10px;
+  }
+
+  .send-button {
+    padding: 16px;
+  }
+}

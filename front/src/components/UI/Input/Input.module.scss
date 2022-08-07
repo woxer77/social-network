@@ -5,4 +5,13 @@
   background-color: $main-bg-color;
   border-radius: 10px;
   font-weight: 700;
+
+  svg {
+    margin-right: 10px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
