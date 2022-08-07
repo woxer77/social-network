@@ -13,6 +13,11 @@ function Main() {
         <div className={styles.posts}>
           <PostAdding />
           <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
         </div>
         <div className={styles.events}>
           <div>event 1</div>
