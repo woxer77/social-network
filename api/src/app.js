@@ -1,13 +1,11 @@
 const express = require('express');
-
 const config = require('./services/config');
+const postsRoutes = require('./routes/posts');
 
 const app = express();
 
-app.listen(config.appPort, () =>
-  console.log('server started at ' + config.appPort)
-);
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/posts', postsRoutes);
+
+app.listen(config.appPort, () => console.log(`server started at ${config.appPort}`));
