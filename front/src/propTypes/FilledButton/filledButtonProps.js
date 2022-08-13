@@ -1,5 +1,5 @@
 const PropTypes = require('prop-types');
 
 module.exports = {
-  text: PropTypes.string.isRequired
+  customClassName: PropTypes.string
 };

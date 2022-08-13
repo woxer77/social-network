@@ -21,7 +21,7 @@ function PostAdding() {
           <div><GlobalSvgSelector id="happySmile" /></div>
           <span className={styles['addition-text']}>Feeling</span>
         </div>
-        <FilledButton customClassName={styles.button} text="Post" />
+        <FilledButton customClassName={styles.button}>Post</FilledButton>
       </div>
     </div>
   );

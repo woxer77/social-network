@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Button } from '@mui/material';
 
-import buttonProps from '../../../propTypes/Button/buttonProps';
+import filledButtonProps from '../../../propTypes/FilledButton/filledButtonProps';
+import filledButtonDefaultProps from '../../../propTypes/FilledButton/filledButtonDefaultProps';
 
-function FilledButton({ customClassName, text }) {
+function FilledButton({ customClassName, children }) {
   return (
     <Button
       variant="contained"
@@ -16,11 +17,12 @@ function FilledButton({ customClassName, text }) {
       }}
       className={customClassName}
     >
-      {text}
+      {children}
     </Button>
   );
 }
 
-FilledButton.propTypes = buttonProps;
+FilledButton.propTypes = filledButtonProps;
+FilledButton.defaultPropTypes = filledButtonDefaultProps;
 
 export default FilledButton;
