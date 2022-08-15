@@ -1,23 +1,33 @@
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import './styles/scss/index.scss';
 
-import Header from './components/elements/Header/Header';
-import LeftSidebar from './components/elements/LeftSidebar/LeftSidebar';
-import RightSidebar from './components/elements/RightSidebar/RightSidebar';
-import Main from './components/elements/Main/Main';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './components/pages/HomePage/HomePage';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <ErrorBoundary>
-      <div className="page">
-        <Header />
-        <LeftSidebar />
-        <RightSidebar />
-        <Main />
-      </div>
-    </ErrorBoundary>
+    <div className="page">
+      <QueryClientProvider client={queryClient}>
+        <ErrorBoundary>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="*"
+                element={
+                  <div style={{ fontSize: '20px', fontWeight: '600' }}>Page not found</div>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </ErrorBoundary>
+      </QueryClientProvider>
+    </div>
   );
 }
 

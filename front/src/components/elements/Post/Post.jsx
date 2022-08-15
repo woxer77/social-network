@@ -19,7 +19,7 @@ function srcset(image, size, rows = 1, cols = 1) {
 
 function Post({
   // eslint-disable-next-line react/prop-types
-  authorName, text, availability, orderedData, imageListCols
+  postId, userId, text, availability, orderedData, imageListCols
 }) {
   return (
     <div className={styles.post}>
@@ -27,7 +27,7 @@ function Post({
         <img className={`icon ${styles.icon}`} src="https://picsum.photos/500/300?random=1" alt="photo1" />
         <div className={styles['name-wrapper']}>
           <span className={styles.name}>
-            {authorName}
+            userId: {userId}, postId: {postId}
           </span>
           <div>
             <span className={styles.time}>2d ago</span>
@@ -39,27 +39,27 @@ function Post({
       <div className={styles.text}>
         {text}
       </div>
-      <ImageList
-        variant="quilted"
-        cols={imageListCols}
-        gap={10}
-        rowHeight={100}
-        sx={{
-          marginBottom: '20px'
-        }}
-      >
-        {/* eslint-disable-next-line react/prop-types */}
-        {orderedData.map((item) => (
-          <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
-            <img
-              {...srcset(item.img, 100, item.rows, item.cols)}
-              alt=""
-              loading="lazy"
-              className={styles.image}
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      {orderedData && (
+        <ImageList
+          variant="quilted"
+          cols={imageListCols}
+          gap={10}
+          rowHeight={100}
+        >
+          {/* eslint-disable-next-line react/prop-types */}
+          {orderedData.map((item, idx) => (
+            <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
+              <img
+                {...srcset(item.img, 100, item.rows, item.cols)}
+                alt=""
+                loading="lazy"
+                className={styles.image}
+                key={`post-${postId}-idx-${idx}`}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      )}
       <div className={styles.info}>
         <div> 3 Comments </div>
         <div> 5 Shares </div>

@@ -49,6 +49,9 @@
     }],
     "react/jsx-props-no-spreading": "warn",
     "import/no-named-as-default": "warn",
-    "import/no-named-as-default-member": "warn"
+    "import/no-named-as-default-member": "warn",
+    "import/prefer-default-export": "warn",
+    "camelcase": "warn",
+    "react/no-array-index-key": "warn"
   }
 }
