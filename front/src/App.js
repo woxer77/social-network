@@ -6,6 +6,7 @@ import './styles/scss/index.scss';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import HomePage from './components/pages/HomePage/HomePage';
+import PageNotFound from './components/elements/PageNotFound/PageNotFound';
 
 const queryClient = new QueryClient();
 
@@ -17,12 +18,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route
-                path="*"
-                element={
-                  <div style={{ fontSize: '20px', fontWeight: '600' }}>Page not found</div>
-                }
-              />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </BrowserRouter>
         </ErrorBoundary>
