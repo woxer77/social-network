@@ -7,6 +7,7 @@ import GlobalSvgSelector from '../../../assets/images/icons/global/GlobalSvgSele
 import CommentAdding from '../CommentAdding/CommentAdding';
 
 import styles from './Post.module.scss';
+import postProps from '../../../propTypes/Post/postProps';
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -18,8 +19,16 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 function Post({
-  // eslint-disable-next-line react/prop-types
-  postId, userId, text, availability, orderedData, imageListCols
+  postId,
+  userId,
+  text,
+  availability,
+  creationDate,
+  creationTime,
+  likesNumber,
+  commentsNumber,
+  orderedData,
+  imageListCols
 }) {
   return (
     <div className={styles.post}>
@@ -30,7 +39,7 @@ function Post({
             userId: {userId}, postId: {postId}
           </span>
           <div>
-            <span className={styles.time}>2d ago</span>
+            <span className={styles.time}>{creationDate} | {creationTime}</span>
             <span className={styles.availability}>{availability}</span>
           </div>
         </div>
@@ -46,7 +55,6 @@ function Post({
           gap={10}
           rowHeight={100}
         >
-          {/* eslint-disable-next-line react/prop-types */}
           {orderedData.map((item, idx) => (
             <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
               <img
@@ -61,7 +69,8 @@ function Post({
         </ImageList>
       )}
       <div className={styles.info}>
-        <div> 3 Comments </div>
+        <div> {likesNumber} Likes </div>
+        <div> {commentsNumber} Comments </div>
         <div> 5 Shares </div>
       </div>
       <div className={styles.buttons}>
@@ -82,5 +91,7 @@ function Post({
     </div>
   );
 }
+
+Post.propTypes = postProps;
 
 export default Post;

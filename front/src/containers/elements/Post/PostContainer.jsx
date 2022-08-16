@@ -1,17 +1,19 @@
 import React from 'react';
 
+import postContainerProps from '../../../propTypes/Post/postContainerProps';
 import Post from '../../../components/elements/Post/Post';
 
 function PostContainer({
-  // eslint-disable-next-line react/prop-types
-  postId, userId, text, availability, imagesData
+  postId,
+  userId,
+  text,
+  availability,
+  creationDate,
+  creationTime,
+  likesNumber,
+  commentsNumber,
+  imagesData
 }) {
-  //  TODO: в пропсах должно передаватьс€:
-  //  аватар, какое врем€ назад написан пост, кол-во лайков,
-  //  кол-во комментов, сами комменты, кол-во репостов
-
-  // TODO: сделать проп“айпс
-
   function imageOrdering(dataString) {
     if (dataString === null) return 0;
 
@@ -96,10 +98,16 @@ function PostContainer({
       userId={userId}
       text={text}
       availability={availability}
+      creationDate={creationDate}
+      creationTime={creationTime}
+      likesNumber={likesNumber}
+      commentsNumber={commentsNumber}
       orderedData={orderedData}
       imageListCols={imageListCols}
     />
   );
 }
+
+PostContainer.propTypes = postContainerProps;
 
 export default PostContainer;
