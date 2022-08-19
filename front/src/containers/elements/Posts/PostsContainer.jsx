@@ -4,12 +4,12 @@ import Posts from '../../../components/elements/Posts/Posts';
 import { getPosts } from './api/crud';
 
 function PostsContainer() {
-  const { isFetching, data } = useQuery('getPosts', () => getPosts());
+  const { isLoading, data } = useQuery('getPosts', () => getPosts());
   const posts = data?.data || [];
 
   return (
     <>
-      {isFetching && <div>Loading...</div>}
+      {isLoading && <div>Loading...</div>}
       <Posts posts={posts} />
     </>
   );

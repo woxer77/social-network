@@ -52,6 +52,7 @@
     "import/no-named-as-default-member": "warn",
     "import/prefer-default-export": "warn",
     "camelcase": "warn",
-    "react/no-array-index-key": "warn"
+    "react/no-array-index-key": "warn",
+    "max-len": "warn"
   }
 }

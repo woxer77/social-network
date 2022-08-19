@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { useQuery } from 'react-query';
 import postContainerProps from '../../../propTypes/Post/postContainerProps';
 import Post from '../../../components/elements/Post/Post';
+import { getUserById } from '../Users/api/crud';
 
 function PostContainer({
   postId,
@@ -87,24 +89,119 @@ function PostContainer({
 
       dataArr[5].rows = 3;
       return { dataArr, imageListCols };
+    case 7:
+      imageListCols = 3;
+
+      dataArr[0].rows = 2;
+      dataArr[0].cols = 2;
+
+      dataArr[1].rows = 2;
+
+      dataArr[2].rows = 4;
+
+      dataArr[3].rows = 4;
+
+      dataArr[4].rows = 4;
+
+      dataArr[5].rows = 2;
+
+      dataArr[6].rows = 2;
+      dataArr[6].cols = 2;
+
+      return { dataArr, imageListCols };
+    case 8:
+      imageListCols = 3;
+
+      dataArr[0].rows = 4;
+
+      dataArr[1].rows = 2;
+
+      dataArr[2].rows = 4;
+
+      dataArr[3].rows = 2;
+
+      dataArr[4].rows = 4;
+
+      dataArr[5].rows = 2;
+
+      dataArr[6].rows = 4;
+
+      dataArr[7].rows = 2;
+
+      return { dataArr, imageListCols };
+    case 9:
+      imageListCols = 3;
+
+      dataArr[0].rows = 2;
+
+      dataArr[1].rows = 3;
+
+      dataArr[2].rows = 2;
+
+      dataArr[3].rows = 3;
+
+      dataArr[4].rows = 2;
+
+      dataArr[5].rows = 2;
+
+      dataArr[6].rows = 3;
+
+      dataArr[7].rows = 2;
+
+      dataArr[8].rows = 2;
+
+      return { dataArr, imageListCols };
+    case 10:
+      imageListCols = 3;
+
+      dataArr[0].rows = 2;
+      dataArr[0].cols = 2;
+
+      dataArr[1].rows = 2;
+
+      dataArr[2].rows = 2;
+
+      dataArr[3].rows = 2;
+
+      dataArr[4].rows = 2;
+
+      dataArr[5].rows = 2;
+
+      dataArr[6].rows = 2;
+
+      dataArr[7].rows = 2;
+
+      dataArr[8].rows = 2;
+
+      dataArr[9].rows = 2;
+      dataArr[9].cols = 2;
+
+      return { dataArr, imageListCols };
     default: return 0;
     }
   }
   const { dataArr: orderedData, imageListCols } = imageOrdering(imagesData);
 
+  const { isLoading, data } = useQuery(`getUserById/${userId}`, () => getUserById(userId));
+  const user = data?.data || {};
+
   return (
-    <Post
-      postId={postId}
-      userId={userId}
-      text={text}
-      availability={availability}
-      creationDate={creationDate}
-      creationTime={creationTime}
-      likesNumber={likesNumber}
-      commentsNumber={commentsNumber}
-      orderedData={orderedData}
-      imageListCols={imageListCols}
-    />
+    <>
+      {isLoading && <div>Loading...</div>}
+      <Post
+        postId={postId}
+        firstName={user.first_name}
+        secondName={user.second_name}
+        text={text}
+        availability={availability}
+        creationDate={creationDate}
+        creationTime={creationTime}
+        likesNumber={likesNumber}
+        commentsNumber={commentsNumber}
+        orderedData={orderedData}
+        imageListCols={imageListCols}
+      />
+    </>
   );
 }
 
