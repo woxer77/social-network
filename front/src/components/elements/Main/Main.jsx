@@ -2,9 +2,8 @@ import React from 'react';
 
 import styles from './Main.module.scss';
 
-import PostAdding from '../PostAdding/PostAdding';
 import PostsContainer from '../../../containers/elements/Posts/PostsContainer';
-// TODO: подумать как хранить время (часовой пояс)
+import PostAddingContainer from '../../../containers/elements/PostAdding/PostAddingContainer';
 // TODO: через middleware multer сделать загрузку изображений
 
 function Main() {
@@ -13,7 +12,7 @@ function Main() {
     <main className={styles.main}>
       <div className={styles.container}>
         <div className={styles.posts}>
-          <PostAdding />
+          <PostAddingContainer />
           <PostsContainer />
         </div>
         <div className={styles.events}>

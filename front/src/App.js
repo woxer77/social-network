@@ -6,7 +6,7 @@ import './styles/scss/index.scss';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import HomePage from './components/pages/HomePage/HomePage';
-import PageNotFound from './components/elements/PageNotFound/PageNotFound';
+import PageNotFound from './components/pages/PageNotFound/PageNotFound';
 
 const queryClient = new QueryClient();
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React/* , { useState } */ from 'react';
 
 import TextField from '@mui/material/TextField';
 
@@ -10,7 +10,9 @@ import inputDefaultProps from '../../../propTypes/Input/inputDefaultProps';
 
 import GlobalSvgSelector from '../../../assets/images/icons/global/GlobalSvgSelector';
 
-function Input({ customClassName, withButtons }) {
+function Input({
+  customClassName, withButtons, multiline, setInputActive
+}) {
   let buttons;
   if (withButtons) {
     buttons = {
@@ -24,13 +26,19 @@ function Input({ customClassName, withButtons }) {
     };
   } else buttons = null;
 
+  // const { isActive, setIsActive } = useState(false);
+  const classNames = `${styles.field} ${customClassName}`;
+
   return (
     <TextField
       hiddenLabel
-      className={`${styles.field} ${customClassName}`}
+      multiline={multiline}
+      onClick={() => setInputActive(true)}
+      className={classNames}
       sx={{
         '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': { border: 'none' },
-        '& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root': { fontFamily: 'inherit', fontWeight: 600 }
+        '& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root': { fontFamily: 'inherit', fontWeight: 600 },
+        '& .MuiInputBase-root': { padding: '0' }
       }}
       placeholder="What's happening?"
       InputProps={buttons}

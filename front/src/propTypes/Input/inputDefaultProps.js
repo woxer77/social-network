@@ -1,4 +1,6 @@
 module.exports = {
   customClassName: '',
-  withButtons: null
+  withButtons: null,
+  multiline: false,
+  setInputActive: () => false
 };

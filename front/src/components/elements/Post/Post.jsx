@@ -18,11 +18,6 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-// TODO: изначально при создании поста получаем new Date(), которая возвращает локальное время и дату, после чего преобразовываем эти данные в UTC time, передаём в базу и сохраняем
-// TODO: когда посты рендерятся - берем время и дату создания поста из базы, преобразовываем текущее локальное время пользователя в UTC и затем находим разницу между текущим временем юзера и временем в базе
-// TODO: сделать алгоритм, при котором если пост создался менее суток назад - отображать это в часах, более суток назад - в днях, более 6 дней назад - в неделях, более 3х недель - в месяцах, более 11 месяцев - в годах
-// TODO: upd к последнему: продумать лет/год часов/часа день/дня недели/неделя
-
 function Post({
   postId,
   firstName,
@@ -47,7 +42,6 @@ function Post({
 
     return `${yyyy}-${mm}-${dd}`;
   }
-
   function postCreatedTimeAlgorithm(ms) {
     const seconds = ms / 1000;
     const minutes = seconds / 60;
@@ -98,8 +92,10 @@ function Post({
     if (secondsRounded === 1) return `${secondsRounded} second ago`;
     return `${secondsRounded} seconds ago`;
   }
-
   const creationDateMs = Date.parse(`${convertToValidFormat(new Date(creationDate))} ${creationTime}`);
+
+  const tempUsersAvatars = ['address1', '2', '3', '4', '5']; // принимаем в пропсах
+  // const filteredTempUsersAvatars = tempUsersAvatars.filter((e, idx) => idx < 3);
 
   return (
     <div className={styles.post}>
@@ -107,10 +103,12 @@ function Post({
         <img className={`icon ${styles.icon}`} src="https://picsum.photos/500/300?random=1" alt="photo1" />
         <div className={styles['name-wrapper']}>
           <span className={styles.name}>
-            {secondName} {firstName}
+            {secondName} {firstName} {likesNumber}
           </span>
           <div>
-            <span className={styles.time}>{postCreatedTimeAlgorithm(Date.now() - creationDateMs)}</span>
+            <span className={styles.time}>
+              {postCreatedTimeAlgorithm(Date.now() - creationDateMs)}
+            </span>
             <span className={styles.availability}>{availability}</span>
           </div>
         </div>
@@ -140,9 +138,23 @@ function Post({
         </ImageList>
       )}
       <div className={styles.info}>
-        <div> {likesNumber} Likes </div>
-        <div> {commentsNumber} Comments </div>
-        <div> 5 Shares </div>
+        <div className={styles['liked-users']}>
+          {tempUsersAvatars.map((e, idx) => {
+            // console.log(e); // TODO: заготовка на будущее
+            if (idx === 3) {
+              return (
+                <div className={`icon ${styles.icon} ${styles['gray-circle']}`}>+{tempUsersAvatars.length - 3}</div>
+              );
+            }
+            return (
+              <img className={`icon ${styles.icon}`} src="https://picsum.photos/500/300?random=1" alt="photo1" />
+            );
+          })}
+        </div>
+        <div className={styles['info-inner']}>
+          <div> {commentsNumber} Comments </div>
+          <div> 5 Shares </div>
+        </div>
       </div>
       <div className={styles.buttons}>
         <div className={styles.button}>

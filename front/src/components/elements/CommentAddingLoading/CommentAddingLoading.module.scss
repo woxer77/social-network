@@ -2,13 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 50px;
+
+  .comment-adding,
+  .send-button {
+    border-radius: 4px/6.7px;
+  }
 
   .comment-input {
-    margin: 0 10px 0 10px;
-    padding-right: 10px;
+    flex-basis: 82%;
   }
 
   .send-button {
-    padding: 16px;
+    flex-basis: 8%;
   }
 }

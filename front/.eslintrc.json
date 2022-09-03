@@ -53,6 +53,9 @@
     "import/prefer-default-export": "warn",
     "camelcase": "warn",
     "react/no-array-index-key": "warn",
-    "max-len": "warn"
+    "max-len": "warn",
+    "eqeqeq": "warn",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn"
   }
 }
