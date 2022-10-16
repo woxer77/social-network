@@ -37,7 +37,7 @@ function Input({
       className={classNames}
       sx={{
         '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': { border: 'none' },
-        '& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root': { fontFamily: 'inherit', fontWeight: 600 },
+        '& .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root': { fontFamily: 'inherit', fontWeight: 700 },
         '& .MuiInputBase-root': { padding: '0' }
       }}
       placeholder="What's happening?"

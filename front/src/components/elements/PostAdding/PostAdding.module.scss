@@ -73,14 +73,24 @@
       margin-right: 30px;
       cursor: pointer;
 
-      &:last-child {
+      &:nth-child(3) {
         margin-right: 0;
       }
 
       .addition-text {
         font-size: 17px;
-        font-weight: 700;
+        font-weight: 500;
         margin-left: 12px;
+      }
+
+      .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &:nth-child(3) {
+        cursor: default;
       }
     }
 

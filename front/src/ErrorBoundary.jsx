@@ -21,7 +21,7 @@ export default class ErrorBoundary extends React.Component {
       return (
         <h1 style={{
           fontSize: '28px',
-          fontWeight: '800',
+          fontWeight: '700',
           display: 'flex',
           justifyContent: 'center'
         }}

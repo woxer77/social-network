@@ -38,7 +38,7 @@
       .time,
       .availability {
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 500;
 
         color: $light-gray;
       }
@@ -57,7 +57,7 @@
 
   .text {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 20px;
     color: $dark-gray;
   }
@@ -70,7 +70,7 @@
   .info {
     display: flex;
     justify-content: space-between;
-    font-weight: 600;
+    font-weight: normal;
     color: $light-gray;
 
     .liked-users {
@@ -112,7 +112,7 @@
     .button {
       display: flex;
       align-items: center;
-      font-weight: 700;
+      font-weight: 500;
       font-size: 17px;
       cursor: pointer;
 

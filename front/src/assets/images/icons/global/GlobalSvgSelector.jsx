@@ -17,6 +17,7 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import ReplyAllOutlinedIcon from '@mui/icons-material/ReplyAllOutlined';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 import selectorProps from '../../../../propTypes/GlobalSvgSelector/selectorProps';
 
@@ -132,6 +133,11 @@ function GlobalSvgSelector({ id }) {
   case 'send': {
     return (
       <SendOutlinedIcon />
+    );
+  }
+  case 'availability': {
+    return (
+      <VisibilityOutlinedIcon />
     );
   }
 

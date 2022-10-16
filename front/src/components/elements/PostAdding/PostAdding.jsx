@@ -31,14 +31,15 @@ function PostAdding({
         </div>
         <div className={styles.bot}>
           <div className={styles['addition-block']}>
-            <div><GlobalSvgSelector id="image" /></div>
+            <div className={styles.icon}><GlobalSvgSelector id="image" /></div>
             <span className={styles['addition-text']}>Photo/Video</span>
           </div>
           <div className={styles['addition-block']}>
-            <div><GlobalSvgSelector id="happySmile" /></div>
+            <div className={styles.icon}><GlobalSvgSelector id="happySmile" /></div>
             <span className={styles['addition-text']}>Feeling</span>
           </div>
           <div className={styles['addition-block']}>
+            <div className={styles.icon}><GlobalSvgSelector id="availability" /></div>
             <CustomSelect
               options={availabilityOptions}
               onChange={(value) => setAvailability(value.value)}

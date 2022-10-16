@@ -21,6 +21,9 @@
       align-items: center;
       width: $left-sidebar-width - 20;
 
+      outline: none;
+      color: inherit;
+
       .logo-icon {
         margin-right: 10px;
 
@@ -32,7 +35,7 @@
 
       .logo-title {
         font-size: 21px;
-        font-weight: 800;
+        font-weight: 700;
       }
     }
 
@@ -43,7 +46,7 @@
 
       .profile-name {
         font-size: 17px;
-        font-weight: 700;
+        font-weight: 500;
         margin-right: 20px;
         word-break: break-all;
       }
