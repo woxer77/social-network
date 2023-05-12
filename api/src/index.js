@@ -3,18 +3,18 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const config = require('./src/configs/config');
-const db = require('./src/configs/db');
-const errorMiddleware = require('./src/middlewares/error-middleware');
+const config = require('./configs/config');
+const db = require('./configs/db');
+const errorMiddleware = require('./middlewares/error-middleware');
 
-const usersRouter = require('./src/routes/users');
-const postsRouter = require('./src/routes/posts');
-const likedUserPostRouter = require('./src/routes/liked-user-post');
-const registrationRouter = require('./src/routes/registration');
-const loginRouter = require('./src/routes/login');
-const logoutRouter = require('./src/routes/logout');
-const emailActivationRouter = require('./src/routes/email-activation');
-const refreshRouter = require('./src/routes/refresh');
+const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
+const likedUserPostRouter = require('./routes/liked-user-post');
+const registrationRouter = require('./routes/registration');
+const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
+const emailActivationRouter = require('./routes/email-activation');
+const refreshRouter = require('./routes/refresh');
 
 const app = express();
 
