@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './SendButton.module.scss';
 
-import GlobalSvgSelector from '../../../assets/images/icons/global/GlobalSvgSelector';
+import PostSvgSelector from '../../../assets/images/icons/post/PostSvgSelector';
 
 import sendButtonPropTypes from '../../../propTypes/SendButton/sendButtonPropTypes';
 import sendButtonDefaultPropTypes from '../../../propTypes/SendButton/sendButtonDefaultPropTypes';
@@ -10,7 +10,7 @@ import sendButtonDefaultPropTypes from '../../../propTypes/SendButton/sendButton
 function SendButton({ customClassName }) {
   return (
     <div className={`${styles.button} ${customClassName}`}>
-      <GlobalSvgSelector id="send" />
+      <PostSvgSelector id="send" />
     </div>
   );
 }
@@ -18,4 +18,4 @@ function SendButton({ customClassName }) {
 SendButton.propTypes = sendButtonPropTypes;
 SendButton.defaultPropTypes = sendButtonDefaultPropTypes;
 
-export default SendButton;
+export default React.memo(SendButton);

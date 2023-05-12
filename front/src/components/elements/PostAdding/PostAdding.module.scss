@@ -1,16 +1,21 @@
-@import './src/styles/scss/config-styles/vars';
+@import '../../../assets/styles/scss/config-styles/vars';
 
-.wrapper {
+.overlay {
   position: fixed;
-  opacity: 0;
-  visibility: hidden;
+
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
   background: rgba(0, 0, 0, 0.35);
-  z-index: $z-index-header + 1;
-  transition: all 0.5s;
+
+  z-index: $z-index-overlay;
+
+  transition: all 0.3s;
 }
 
 .active {
@@ -18,30 +23,37 @@
   visibility: visible;
 
   & + .post-adding {
-    z-index: $z-index-header + 2;
+    z-index: $z-index-post-adding;
 
     textarea {
-      transition: height 0.5s !important;
-      overflow-y: scroll !important;
       height: $input-max-width * 3 !important;
+
+      overflow-y: scroll !important;
+
+      transition: height 0.5s !important;
     }
   }
 }
 
 .post-adding {
   position: relative;
-  background-color: $white;
+
+  background-color: $white-color;
+
   padding: 15px;
+
   border-radius: 20px;
 
   .top {
     display: flex;
     align-items: center;
+
     margin-bottom: 20px;
 
     .field {
-      overflow: hidden;
       max-height: $input-max-width * 3;
+
+      overflow: hidden;
 
       textarea {
         overflow-y: hidden;
@@ -70,7 +82,9 @@
     .addition-block {
       display: flex;
       align-items: center;
+
       margin-right: 30px;
+
       cursor: pointer;
 
       &:nth-child(3) {
@@ -80,6 +94,7 @@
       .addition-text {
         font-size: 17px;
         font-weight: 500;
+
         margin-left: 12px;
       }
 
@@ -97,6 +112,7 @@
     .button {
       width: 100%;
       max-width: 130px;
+
       margin: 0 0 0 auto;
     }
   }

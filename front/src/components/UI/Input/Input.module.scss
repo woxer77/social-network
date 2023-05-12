@@ -1,10 +1,13 @@
-@import './src/styles/scss/config-styles/vars';
+@import '../../../assets/styles/scss/config-styles/vars';
 
 .field {
   width: 100%;
   max-height: $input-max-width;
+
   background-color: $main-bg-color;
+
   border-radius: 10px;
+
   transition: all 0.3s;
 
   &:hover {
@@ -13,6 +16,7 @@
 
   svg {
     margin-right: 10px;
+
     cursor: pointer;
 
     &:last-child {

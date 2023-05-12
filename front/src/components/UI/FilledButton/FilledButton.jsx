@@ -9,11 +9,16 @@ function FilledButton({ customClassName, children }) {
   return (
     <Button
       variant="contained"
+      type="submit"
       sx={{
         backgroundColor: '#377DFF',
         borderRadius: 2,
         textTransform: 'none',
-        fontSize: 17
+        fontSize: 18,
+        lineHeight: 'normal',
+        fontFamily: 'inherit',
+        fontWeight: 400,
+        padding: '0 0'
       }}
       className={customClassName}
     >
@@ -25,4 +30,4 @@ function FilledButton({ customClassName, children }) {
 FilledButton.propTypes = filledButtonProps;
 FilledButton.defaultPropTypes = filledButtonDefaultProps;
 
-export default FilledButton;
+export default React.memo(FilledButton);

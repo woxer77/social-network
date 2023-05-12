@@ -1,8 +1,10 @@
-@import './src/styles/scss/config-styles/vars';
+@import '../../../assets/styles/scss/config-styles/vars';
 
 .post {
   position: relative;
-  background-color: $white;
+
+  background-color: $white-color;
+
   border-radius: 20px;
   padding: 15px;
   margin-top: 30px;
@@ -16,12 +18,14 @@
   }
 
   .author {
-    display: flex;
     height: 55px;
+
+    display: flex;
 
     .icon {
       width: 50px;
       height: 50px;
+
       margin-right: 20px;
     }
 
@@ -38,9 +42,8 @@
       .time,
       .availability {
         font-size: 14px;
-        font-weight: 500;
 
-        color: $light-gray;
+        color: $light-gray-color;
       }
 
       .time {
@@ -51,27 +54,30 @@
     svg {
       position: absolute;
       right: 20px;
+
       cursor: pointer;
     }
   }
 
   .text {
-    font-size: 15px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 20px;
-    color: $dark-gray;
+    letter-spacing: 0.1px;
+
+    color: $dark-gray-color;
   }
 
   .image {
     border-radius: 20px;
+
     cursor: pointer;
   }
 
   .info {
     display: flex;
     justify-content: space-between;
-    font-weight: normal;
-    color: $light-gray;
+
+    color: $light-gray-color;
 
     .liked-users {
       display: flex;
@@ -84,11 +90,12 @@
       }
 
       .gray-circle {
-        background-color: #4E5D78;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: $white;
+
+        background-color: $dark-gray-color;
+        color: $white-color;
       }
     }
 
@@ -105,15 +112,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     padding: 10px 0;
+
     border-top: 1px solid #DCDFE4;
     border-bottom: 1px solid #DCDFE4;
 
     .button {
       display: flex;
       align-items: center;
+
       font-weight: 500;
       font-size: 17px;
+
       cursor: pointer;
 
       svg:first-child {

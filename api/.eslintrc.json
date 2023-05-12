@@ -15,6 +15,12 @@
         "comma-dangle": ["error", {
             "imports": "never"
         }],
-        "newline-per-chained-call": "warn"
+        "newline-per-chained-call": "warn",
+        "indent": [
+            "error",
+            2
+        ],
+        "class-methods-use-this": "warn",
+        "max-len": "warn"
     }
 }

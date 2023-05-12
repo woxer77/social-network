@@ -1,9 +1,7 @@
-@import './src/styles/scss/config-styles/vars';
+@import '../../../assets/styles/scss/config-styles/vars';
 
 .main {
-  margin-top: $header-height;
-  margin-left: $left-sidebar-width;
-  margin-right: $right-sidebar-width;
+  margin: $header-height $right-sidebar-width 0 $left-sidebar-width;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 

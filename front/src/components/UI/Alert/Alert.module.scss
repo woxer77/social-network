@@ -1,0 +1,14 @@
+.alert-wrapper {
+  position: fixed;
+  right: 20px;
+  width: 300px;
+  height: 100vh;
+  overflow: auto;
+
+  .alert {
+    position: sticky;
+    top: 0;
+
+    transition: opacity 0.5s !important;
+  }
+}

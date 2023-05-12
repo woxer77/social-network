@@ -1,45 +1,71 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { useMutation } from 'react-query';
 import styles from './LeftSidebar.module.scss';
 
-import GlobalSvgSelector from '../../../assets/images/icons/global/GlobalSvgSelector';
+import LeftSidebarSvgSelector from '../../../assets/images/icons/left-sidebar/LeftSidebarSvgSelector';
+import { logout } from '../../../services/auth';
+import { persistor } from '../../../redux/store';
 
 function LeftSidebar() {
+  const navItems = [
+    { name: 'Feed', iconId: 'feed', href: '/' },
+    { name: 'My community', iconId: 'my-community', href: '/my-community' },
+    { name: 'Messages', iconId: 'messages', href: '/messages' },
+    { name: 'Notifications', iconId: 'notifications', href: '/notifications' },
+    { name: 'Explore', iconId: 'explore', href: '/explore' },
+    { name: 'Profile', iconId: 'profile', href: '/profile' },
+    { name: 'Settings', iconId: 'settings', href: '/settings' },
+    { name: 'Logout', iconId: 'logout', href: '/logout' }
+  ];
+
+  const mutateHook = useMutation(
+    'user logout',
+    () => logout(),
+    {
+      onSuccess() {
+        localStorage.removeItem('token');
+        persistor.purge();
+      },
+      onError(error) {
+        console.log('User logout error:', error);
+      }
+    }
+  );
+
+  function logoutHandler() {
+    mutateHook.mutate();
+  }
+
   return (
     <aside className={styles['left-sidebar']}>
       <nav className={styles.nav}>
         <ul>
-          <a className={`${styles['nav-item']} ${styles['nav-item_active']}`} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="feed" /></div>
-            <span className={styles['nav-text']}>Feed</span>
-          </a>
-          <a className={styles['nav-item']} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="my-community" /></div>
-            <span className={styles['nav-text']}>My community</span>
-          </a>
-          <a className={styles['nav-item']} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="messages" /></div>
-            <span className={styles['nav-text']}>Messages</span>
-          </a>
-          <a className={styles['nav-item']} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="notifications" /></div>
-            <span className={styles['nav-text']}>Notification</span>
-          </a>
-          <a className={styles['nav-item']} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="explore" /></div>
-            <span className={styles['nav-text']}>Explore</span>
-          </a>
-          <a className={styles['nav-item']} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="profile" /></div>
-            <span className={styles['nav-text']}>Profile</span>
-          </a>
-          <a className={styles['nav-item']} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="settings" /></div>
-            <span className={styles['nav-text']}>Settings</span>
-          </a>
-          <a className={styles['nav-item']} href="#2">
-            <div className={styles['nav-icon']}><GlobalSvgSelector id="logout" /></div>
-            <span className={styles['nav-text']}>Logout</span>
-          </a>
+          {navItems.map((elem, idx) => (
+            elem.name !== 'Logout'
+              ? (
+                <Link
+                  className={`${styles['nav-item']} ${idx || styles['nav-item_active']}`}
+                  to={elem.href}
+                  key={elem.iconId}
+                >
+                  <LeftSidebarSvgSelector id={elem.iconId} className={styles['nav-icon']} />
+                  <span className={styles['nav-text']}>{elem.name}</span>
+                </Link>
+              )
+              : (
+                <button
+                  type="submit"
+                  className={`${styles['nav-item']} ${idx || styles['nav-item_active']}`}
+                  key={elem.iconId}
+                  onClick={logoutHandler}
+                >
+                  <LeftSidebarSvgSelector id={elem.iconId} className={styles['nav-icon']} />
+                  <span className={styles['nav-text']}>{elem.name}</span>
+                </button>
+              )
+          ))}
         </ul>
       </nav>
     </aside>

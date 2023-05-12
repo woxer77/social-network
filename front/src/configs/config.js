@@ -1,3 +1,3 @@
 module.exports = {
-  appPort: process.env.REACT_APP_PORT
+  url: process.env.REACT_APP_DEV_URL
 };

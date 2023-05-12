@@ -1,0 +1,50 @@
+@import '../../../assets/styles/scss/config-styles/vars'; // Подключение файла с переменными
+
+.default-field {
+  width: 100%;
+
+  position: relative;
+
+  margin-bottom: 20px;
+
+  input {
+    width: 100%;
+    height: 50px;
+
+    padding: 10px 10px 12px 40px;
+
+    border-radius: 10px;
+    border: 2px solid #DEDFE4;
+    font-size: 17px;
+  }
+
+  .start-icon svg,
+  .end-icon svg {
+    width: 20px;
+    height: 20px;
+
+    position: absolute;
+    top: 25px;
+
+    transform: translateY(-50%);
+  }
+
+  .start-icon svg {
+    left: 15px;
+  }
+
+  .end-icon svg {
+    right: 15px;
+
+    cursor: pointer;
+  }
+
+  .error {
+    margin-top: 10px;
+    margin-bottom: -10px;
+
+    font-weight: 500;
+    font-size: 17px;
+    color: $text-error-color;
+  }
+}

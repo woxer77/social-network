@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import searchProps from '../../../propTypes/Search/searchProps';
 import searchDefaultProps from '../../../propTypes/Search/searchDefaultProps';
 
-import GlobalSvgSelector from '../../../assets/images/icons/global/GlobalSvgSelector';
+import HeaderSvgSelector from '../../../assets/images/icons/header/HeaderSvgSelector';
 
 const topFilms = [
   {
@@ -151,6 +151,14 @@ function Search({ customClassName, customPlaceholder }) {
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
 
+  const autocompleteOpen = () => {
+    setOpen(true);
+  };
+
+  const autocompleteClose = () => {
+    setOpen(false);
+  };
+
   React.useEffect(() => {
     let active = true;
 
@@ -190,12 +198,8 @@ function Search({ customClassName, customPlaceholder }) {
         }
       }}
       open={open}
-      onOpen={() => {
-        setOpen(true);
-      }}
-      onClose={() => {
-        setOpen(false);
-      }}
+      onOpen={autocompleteOpen}
+      onClose={autocompleteClose}
       isOptionEqualToValue={(option, value) => option.title === value.title}
       getOptionLabel={(option) => option.title}
       options={options}
@@ -204,15 +208,15 @@ function Search({ customClassName, customPlaceholder }) {
       renderInput={(params) => (
         <>
           <div style={{ position: 'absolute', marginTop: '9px', paddingLeft: '7px' }}>
-            <GlobalSvgSelector id="search" />
+            <HeaderSvgSelector id="search" />
           </div>
           <TextField
             {...params}
             label={customPlaceholder}
             size="small"
             sx={{
-              '& .css-1pysi21-MuiFormLabel-root-MuiInputLabel-root': {
-                paddingLeft: '20px'
+              label: {
+                paddingLeft: '25px'
               },
               '& .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input': {
                 paddingLeft: '35px'

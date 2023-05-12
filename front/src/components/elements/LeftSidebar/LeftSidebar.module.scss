@@ -1,29 +1,34 @@
-@import './src/styles/scss/config-styles/vars';
+@import '../../../assets/styles/scss/config-styles/vars';
 
 .left-sidebar {
-  position: fixed;
-
   width: $left-sidebar-width;
   height: 100vh;
+
   top: $header-height;
   left: 0;
+
+  position: fixed;
+
   z-index: $z-index-left-sidebar;
 
-  background-color: $white;
+  background-color: $white-color;
 
   .nav {
     padding: 8px 20px 8px 20px;
 
     .nav-item {
+      width: 100%;
       height: 45px;
-      border-radius: 7px;
+
       padding: 15px;
       margin-bottom: 10px;
 
-      color: inherit;
-
       display: flex;
       align-items: center;
+
+      border-radius: 8px;
+
+      color: inherit;
 
       transition: background-color 0.5s;
 
@@ -36,15 +41,14 @@
       }
 
       &:hover {
-        background-color: rgba(78,93,120,0.3);
+        background-color: rgba(78, 93, 120, 0.3);
       }
 
       .nav-icon {
-        svg {
-          width: 26px;
-          height: 26px;
-          margin-right: 20px;
-        }
+        width: 26px;
+        height: 26px;
+
+        margin-right: 20px;
       }
 
       .nav-text {
@@ -54,15 +58,15 @@
     }
 
     .nav-item_active {
-      background-color: $dark-gray;
-      color: $white;
+      background-color: $dark-gray-color;
+      color: $white-color;
 
-      &:hover {
-        background-color: $dark-gray;
+      .nav-icon {
+        fill: $white-color;
       }
 
-      .nav-text {
-        color: $white;
+      &:hover {
+        background-color: $dark-gray-color;
       }
     }
   }

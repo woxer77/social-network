@@ -1,54 +1,61 @@
-@import './src/styles/scss/config-styles/vars';
+@import '../../../assets/styles/scss/config-styles/vars';
 
 .header {
   position: fixed;
 
   width: 100%;
   height: $header-height;
+
   top: 0;
   right: 0;
+
   z-index: $z-index-header;
 
-  background-color: $white;
+  background-color: $white-color;
 
   .header-content {
     display: flex;
-    justify-content: space-between;
     padding: 20px;
 
     .logo {
-      display: flex;
-      align-items: center;
-      width: $left-sidebar-width - 20;
+      min-width: $left-sidebar-width - 20px; // header padding-left = 20px
 
-      outline: none;
-      color: inherit;
+      display: flex;
+
+      .logo-link {
+        max-width: 44px + 32px + 10px;
+
+        display: flex;
+        align-items: center;
+        outline: none;
+      }
 
       .logo-icon {
         margin-right: 10px;
-
-        svg {
-          width: 32px;
-          height: 32px;
-        }
       }
 
       .logo-title {
         font-size: 21px;
         font-weight: 700;
+        color: $dark-gray-color;
       }
     }
 
     .profile {
+      min-width: $right-sidebar-width;
+
       display: flex;
       justify-content: flex-end;
       align-items: center;
 
+      margin: 0 0 0 auto;
+
       .profile-name {
         font-size: 17px;
-        font-weight: 500;
-        margin-right: 20px;
+        font-weight: 600;
         word-break: break-all;
+
+        margin-right: 20px;
       }
 
       .profile-icon {
@@ -57,8 +64,8 @@
     }
 
     .search-wrapper {
-      width: 40%;
-      margin-right: auto;
+      max-width: 1350px;
+      width: 100%;
 
       .search {
         max-width: 540px;

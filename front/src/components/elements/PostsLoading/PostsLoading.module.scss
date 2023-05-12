@@ -1,11 +1,14 @@
-@import './src/styles/scss/config-styles/vars';
+@import '../../../assets/styles/scss/config-styles/vars';
 
 .post {
   position: relative;
-  background-color: $white;
-  border-radius: 20px;
+
   padding: 15px;
   margin-top: 30px;
+
+  background-color: $white-color;
+
+  border-radius: 20px;
 
   & > * {
     margin-bottom: 20px;
@@ -16,15 +19,18 @@
   }
 
   .author {
-    display: flex;
     height: 55px;
 
+    display: flex;
+
     .name-wrapper {
+      max-width: 350px;
+      width: 100%;
+
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
-      max-width: 350px;
-      width: 100%;
+
       margin-left: 20px;
 
       &-info {
@@ -57,15 +63,16 @@
       display: flex;
 
       span {
-        margin-right: -5px;
+        margin-right: 5px;
       }
     }
 
     .info-inner {
-      display: flex;
-      justify-content: space-between;
       max-width: 250px;
       width: 100%;
+
+      display: flex;
+      justify-content: space-between;
     }
   }
 
@@ -73,20 +80,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     padding: 10px 0;
+
     border-top: 1px solid #DCDFE4;
     border-bottom: 1px solid #DCDFE4;
 
     .button {
-      display: flex;
-      align-items: center;
       max-width: 150px;
       width: 100%;
 
+      display: flex;
+      align-items: center;
+
       .text {
-        flex-basis: 72%;
-        font-size: 15px;
         width: 100%;
+
+        flex-basis: 72%;
+
+        font-size: 15px;
       }
 
       span:first-child {

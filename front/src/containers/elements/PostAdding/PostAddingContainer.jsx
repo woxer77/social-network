@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import PostAdding from '../../../components/elements/PostAdding/PostAdding';
 
 function PostAddingContainer() {
-  const [inputActive, setInputActive] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [availability, setAvailability] = useState('');
 
   // TODO: availability for classmates, colleagues etc...
   const availabilityOptions = [
@@ -13,7 +11,6 @@ function PostAddingContainer() {
     { value: 'for friends', label: 'For friends' },
     { value: 'for me', label: 'For me' }
   ];
-
   const customStyles = {
     control: (defaultStyles) => ({
       ...defaultStyles, backgroundColor: '#F6F7F8', border: 'none', marginLeft: '12px', maxWidth: '140px'
@@ -34,9 +31,6 @@ function PostAddingContainer() {
 
   return (
     <PostAdding
-      inputActive={inputActive}
-      setInputActive={setInputActive}
-      setAvailability={setAvailability}
       availabilityOptions={availabilityOptions}
       customStyles={customStyles}
     />

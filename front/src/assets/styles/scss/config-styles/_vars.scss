@@ -1,0 +1,22 @@
+$main-bg-color: #F7F8F9;
+$white-color: #FFFFFF;
+$dark-gray-color: #4E5D78;
+$light-gray-color: #A0A8B6;
+
+$text-error-color: #FF8D74;
+$text-link-color: #4385FF;
+
+$z-index-header: 1000;
+$z-index-left-sidebar: $z-index-header;
+$z-index-right-sidebar: $z-index-header;
+$z-index-overlay: $z-index-header + 1;
+$z-index-post-adding: $z-index-overlay + 1;
+
+$header-height: 80px;
+$left-sidebar-width: 240px;
+$right-sidebar-width: 312px;
+$main-container-padding: 30px;
+
+$main-container-width: 1370px;
+
+$input-max-width: 56px;

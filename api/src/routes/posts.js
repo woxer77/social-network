@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const postsService = require('../services/store/posts.service');
+const PostController = require('../controllers/post-controller');
+const authMiddleware = require('../middlewares/auth-middleware');
+
+router.get('/', authMiddleware, PostController.getAllPosts);
+router.post('/', PostController.createPost);
 
 module.exports = router;
-
-router.get('/', async (req, res) => {
-  res.status(200).json(await postsService.getAllPosts());
-});

@@ -1,0 +1,206 @@
+@import 'config-styles/vars';
+
+body {
+  background-color: $main-bg-color;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 10px;
+
+  .title {
+    font-size: 40px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+  }
+
+  .text {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .form-wrapper {
+    width: 600px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    border-radius: 10px;
+
+    margin-top: 20px;
+    padding: 40px;
+
+    background-color: $white-color;
+
+    .buttons-wrapper {
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+
+      .auth-button {
+        min-width: 240px;
+        height: 50px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        outline: none;
+        border: none;
+        border-radius: 10px;
+
+        background-color: $main-bg-color;
+
+        font-weight: 500;
+        font-size: 18px;
+        color: $dark-gray-color;
+
+        svg {
+          margin-right: 15px;
+        }
+      }
+    }
+
+    .separator {
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin: 35px 0;
+
+      span {
+        min-width: 220px;
+        height: 2px;
+
+        background-color: #EFF0F6;
+      }
+
+      p {
+        font-size: 21px;
+        font-weight: 600;
+      }
+    }
+
+    .form {
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .default-fields-wrapper {
+        width: 100%;
+
+        div:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .double-field {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+
+        margin-top: 20px;
+
+        .date-field,
+        .gender-field {
+          width: 48%;
+
+          position: relative;
+        }
+
+        .date-field {
+          input {
+            width: 100%;
+            height: 50px;
+
+            padding: 10px 10px 12px 40px;
+
+            border-radius: 10px;
+            border: 2px solid #DEDFE4;
+
+            font-size: 17px;
+
+            &::placeholder {
+              color: $light-gray-color;
+            }
+          }
+
+          div button {
+            width: 20px;
+            height: 20px;
+
+            position: absolute;
+            top: 25px;
+            left: 15px;
+
+            transform: translateY(-50%);
+
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+
+        .gender-field {
+          position: relative;
+
+          .wrapper {
+            height: 50px;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            border: 2px solid #DEDFE4;
+            border-radius: 10px;
+          }
+        }
+      }
+
+      .sign-in {
+        display: flex;
+
+        .text {
+          margin-right: 15px;
+        }
+      }
+    }
+
+    .submit-wrapper {
+      width: 100%;
+    }
+
+    .submit {
+      width: 100%;
+      height: 50px;
+
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.error {
+  margin-top: 10px;
+  margin-bottom: -10px;
+  color: $text-error-color;
+
+  font-weight: 500;
+  font-size: 17px;
+}
