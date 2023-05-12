@@ -6,7 +6,10 @@ import PostsLoading from '../../../components/elements/PostsLoading/PostsLoading
 
 function PostsContainer() {
   const { isLoading, isError, data } = useInfiniteQuery('posts', ({ pageParam = 1 }) => getPosts(pageParam), {
-    getNextPageParam: (lastPage, pages) => lastPage.info.page + 1
+    getNextPageParam: (lastPage, pages) => {
+      console.log(pages);
+      return lastPage.info.page + 1;
+    }
   });
   const posts = data?.data || [];
 
