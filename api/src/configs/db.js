@@ -1,7 +1,5 @@
 const config = require('./config');
-const { dbHost } = require('./config');
 
-console.log(config);
 module.exports = require('knex')({
   client: 'pg',
   connection: {
