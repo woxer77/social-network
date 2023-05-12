@@ -32,6 +32,7 @@ module.exports = {
 
   async login(req, res, next) {
     try {
+      console.log('IM IN LOGIN');
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
