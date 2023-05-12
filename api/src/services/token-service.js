@@ -4,7 +4,6 @@ const tokenDbService = require('./token-db-service');
 
 module.exports = {
   generateTokens(payload) {
-    console.log(config.accessTokenTimeline, config.refreshTokenTimeline);
     const accessToken = jwt.sign(
       payload,
       config.accessTokenSecret,

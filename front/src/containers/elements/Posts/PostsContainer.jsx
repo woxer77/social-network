@@ -1,19 +1,21 @@
 import React from 'react';
-import { useInfiniteQuery } from 'react-query';
+import { /* useInfiniteQuery,  */useQuery } from 'react-query';
 import Posts from '../../../components/elements/Posts/Posts';
 import { getPosts } from '../../../services/posts';
 import PostsLoading from '../../../components/elements/PostsLoading/PostsLoading';
+// import { getUserById } from '../../../services/users';
 
 function PostsContainer() {
-  const { isLoading, isError, data } = useInfiniteQuery('posts', ({ pageParam = 1 }) => getPosts(pageParam), {
+  const { isLoading, isError, data } = useQuery('get posts', () => getPosts());
+  /* const { isLoading, isError, data } = useInfiniteQuery('posts', ({ pageParam = 1 }) => getPosts(pageParam), {
     getNextPageParam: (lastPage, pages) => {
       console.log(pages);
       return lastPage.info.page + 1;
     }
-  });
+  }); */
   const posts = data?.data || [];
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     let isFetching = false;
     function onScroll(event) {
       const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
@@ -29,7 +31,7 @@ function PostsContainer() {
     return () => {
       document.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, []); */
 
   if (isLoading || isError) return (<PostsLoading />);
   // TODO: если нет постов - отображать соответствующий текст
