@@ -39,6 +39,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setAuth(state, action) {
+      console.log('reducers setAuth action.payload,', action.payload);
       state.user.isAuth = action.payload;
     },
     setEmail(state, action) {
