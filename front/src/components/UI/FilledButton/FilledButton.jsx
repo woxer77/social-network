@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import filledButtonProps from '../../../propTypes/FilledButton/filledButtonProps';
 import filledButtonDefaultProps from '../../../propTypes/FilledButton/filledButtonDefaultProps';
 
-function FilledButton({ customClassName, children }) {
+function FilledButton({ children, customClassName, ...props }) {
   return (
     <Button
       variant="contained"
@@ -21,6 +21,7 @@ function FilledButton({ customClassName, children }) {
         padding: '0 0'
       }}
       className={customClassName}
+      {...props}
     >
       {children}
     </Button>

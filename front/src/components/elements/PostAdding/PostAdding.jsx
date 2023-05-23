@@ -32,7 +32,6 @@ function PostAdding({
 
   const user = useSelector((state) => state.userReducer.user);
 
-  const overlayStyles = !inputActive ? `${styles.overlay}` : `${styles.overlay} ${styles.active}`;
   const initialValues = {
     text: '',
     images: '',
@@ -41,24 +40,15 @@ function PostAdding({
     creationTime: '',
     userId: ''
   };
-  const emojiPickerButtonStyles = {
-    icon: { fill: showEmojiPicker ? '#1565c0' : '#515f7a' },
-    text: { color: showEmojiPicker ? '#1565c0' : '#515f7a' }
-  };
-  const emojiPickerStyles = {
-    position: 'absolute',
-    top: inputActive ? '256px' : '143px',
-    left: '175px',
-    zIndex: 1
-  };
-
-  const inputDeactivateHandler = () => {
-    setInputActive(false);
-  };
 
   const mutateHook = useMutation(
     'post create',
-    (data) => createPost(data)
+    (data) => createPost(data),
+    {
+      onSuccess() {
+        window.location.reload();
+      }
+    }
   );
 
   const onFormSubmit = async (data) => {
@@ -78,6 +68,26 @@ function PostAdding({
     initialValues,
     onSubmit: onFormSubmit
   });
+
+  const overlayStyles = !inputActive ? `${styles.overlay}` : `${styles.overlay} ${styles.active}`;
+  const emojiPickerButtonStyles = {
+    icon: { fill: showEmojiPicker ? '#1565c0' : '#515f7a' },
+    text: { color: showEmojiPicker ? '#1565c0' : '#515f7a' }
+  };
+  const emojiPickerStyles = {
+    position: 'absolute',
+    top: inputActive ? '256px' : '143px',
+    left: '175px',
+    zIndex: 1
+  };
+  const buttonStyles = {
+    backgroundColor: formik.values.text ? '#377DFF' : '#74A4FC',
+    color: 'white'
+  };
+
+  const inputDeactivateHandler = () => {
+    setInputActive(false);
+  };
 
   const handleEmojiClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
@@ -100,7 +110,7 @@ function PostAdding({
   }, []);
 
   const addEmoji = (emoji) => {
-    formik.values.text += emoji.native;
+    formik.setFieldValue('text', formik.values.text + emoji.native);
   };
 
   return (
@@ -127,9 +137,11 @@ function PostAdding({
               <div className={styles.icon}><PostSvgSelector id="image" /></div>
               <span className={styles['addition-text']}>Photo/Video</span>
             </div>
-            <div className={styles['addition-block']} onClick={handleEmojiClick} ref={emojiPickerButtonRef}>
-              <div className={styles.icon}><PostSvgSelector id="happySmile" style={emojiPickerButtonStyles.icon} /></div>
-              <span className={styles['addition-text']} style={emojiPickerButtonStyles.text}>Feeling</span>
+            <div className={styles['addition-block']}>
+              <div onClick={handleEmojiClick} ref={emojiPickerButtonRef} style={{ display: 'flex' }}>
+                <div className={styles.icon}><PostSvgSelector id="happySmile" style={emojiPickerButtonStyles.icon} /></div>
+                <span className={styles['addition-text']} style={emojiPickerButtonStyles.text}>Feeling</span>
+              </div>
               {showEmojiPicker && (
                 <div ref={emojiPickerRef} style={emojiPickerStyles}>
                   <Picker data={emojiData} onEmojiSelect={addEmoji} />
@@ -146,7 +158,7 @@ function PostAdding({
                 defaultValue={availabilityOptions[0]}
               />
             </div>
-            <FilledButton customClassName={styles.button}>Post</FilledButton>
+            <FilledButton customClassName={styles.button} style={buttonStyles} disabled={!formik.values.text}>Post</FilledButton>
           </div>
         </form>
       </RemoveScroll>

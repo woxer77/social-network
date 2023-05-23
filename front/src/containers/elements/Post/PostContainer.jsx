@@ -38,6 +38,7 @@ function PostContainer({
   return (
     <Post
       postId={postId}
+      userId={userId}
       firstName={user.first_name}
       secondName={user.second_name}
       text={text}
