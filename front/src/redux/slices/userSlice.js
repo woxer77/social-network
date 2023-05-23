@@ -58,7 +58,7 @@ const userSlice = createSlice({
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       // здесь можно обновить стейт при успешном завершении запроса
       state.loading = false;
-      state.user = action.payload; // получаем данные пользователя из payload
+      state.user = action.payload || {}; // получаем данные пользователя из payload
       state.user.isAuth = true;
     });
     builder.addCase(checkAuth.rejected, (state, action) => {
