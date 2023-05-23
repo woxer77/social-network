@@ -3,7 +3,6 @@ const postsDbService = require('./post-db-service');
 module.exports = {
   async getAllPosts(page) {
     const posts = await postsDbService.getAllPosts(page);
-    console.log('posts=', posts);
     return posts;
   },
 
@@ -27,5 +26,9 @@ module.exports = {
       creationTime: post.creation_time
     };
     return postPayload;
+  },
+
+  async deletePost(postId) {
+    await postsDbService.deletePostById(postId);
   }
 };

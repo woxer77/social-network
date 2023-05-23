@@ -23,5 +23,17 @@ module.exports = {
     } catch (e) {
       next(e);
     }
+  },
+
+  async deletePost(req, res, next) {
+    try {
+      const postId = req.params.id;
+      console.log(postId);
+      await postService.deletePost(postId);
+
+      res.status(200).json();
+    } catch (e) {
+      next(e);
+    }
   }
 };

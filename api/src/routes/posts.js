@@ -3,6 +3,7 @@ const PostController = require('../controllers/post-controller');
 const authMiddleware = require('../middlewares/auth-middleware');
 
 router.get('/', authMiddleware, PostController.getAllPosts);
-router.post('/', PostController.createPost);
+router.post('/', authMiddleware, PostController.createPost);
+router.delete('/:id', authMiddleware, PostController.deletePost);
 
 module.exports = router;
