@@ -16,4 +16,4 @@ services:
       - ${APP_PORT}:${APP_PORT}
     volumes:
       - ./:/src
-    command: sh -c "npx nodemon --legacy-watch -r dotenv/config src/index.js"
+    command: sh -c "npx nodemon --legacy-watch -r dotenv/config index.js"

@@ -3,7 +3,7 @@ import React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import PostSvgSelector from '../../../assets/images/icons/post/PostSvgSelector';
 import GlobalSvgSelector from '../../../assets/images/icons/global/GlobalSvgSelector';
 import CommentAdding from '../CommentAdding/CommentAdding';
@@ -42,7 +42,7 @@ function Post({
 
   const finalCreationDate = convertTime(Date.now() - creationMs);
   const tempUsersAvatars = ['address1', '2', '3', '4', '5', '5', '6', '7', '8']; // принимаем в пропсах
-  const user = useSelector((state) => state.userReducer.user);
+  // const user = useSelector((state) => state.userReducer.user);
 
   return (
     <div className={styles.post}>
@@ -54,7 +54,7 @@ function Post({
         />
         <div className={styles['name-wrapper']}>
           <span className={styles.name}>
-            {secondName} {firstName} {likesNumber} {user.firstName}
+            {secondName} {firstName} {likesNumber}
           </span>
           <div>
             <span className={styles.time}>
@@ -73,7 +73,7 @@ function Post({
           variant="quilted"
           cols={imageListCols}
           gap={8}
-          rowHeight={100}
+          rowHeight={75}
         >
           {orderedData.map((item) => (
             <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
@@ -120,7 +120,6 @@ function Post({
         </div>
         <div className={styles['info-inner']}>
           <div> {commentsNumber} Comments </div>
-          <div> 5 Shares </div>
         </div>
       </div>
       <div className={styles.buttons}>

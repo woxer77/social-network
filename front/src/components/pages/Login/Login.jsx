@@ -11,8 +11,7 @@ import { useMutation } from 'react-query';
 
 import styles from '../../../assets/styles/scss/Auth.module.scss';
 
-import AuthSvgSelector
-  from '../../../assets/images/icons/auth/AuthSvgSelector';
+// import AuthSvgSelector from '../../../assets/images/icons/auth/AuthSvgSelector';
 
 import schema from '../../../helpers/validation/login';
 import FormikField from '../../UI/FormikField/FormikField';
@@ -67,7 +66,7 @@ function Login() {
           Welcome back, you&apos;ve been missed!
         </p>
         <div className={styles['form-wrapper']}>
-          <div className={styles['buttons-wrapper']}>
+          {/* <div className={styles['buttons-wrapper']}>
             <button type="button" className={styles['auth-button']}>
               <AuthSvgSelector id="google" width="30px" height="30px" />
               Log in with Google
@@ -81,7 +80,7 @@ function Login() {
             <span />
             <p>OR</p>
             <span />
-          </div>
+          </div> */}
           <Formik
             initialValues={{
               email: '',

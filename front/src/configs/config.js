@@ -1,3 +1,3 @@
 module.exports = {
-  url: process.env.REACT_APP_PROD_URL
+  url: process.env.REACT_APP_DEV_URL
 };

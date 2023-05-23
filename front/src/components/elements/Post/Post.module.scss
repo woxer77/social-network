@@ -67,9 +67,9 @@
     color: $dark-gray-color;
   }
 
+
   .image {
     border-radius: 20px;
-
     cursor: pointer;
   }
 
@@ -101,10 +101,6 @@
 
     .info-inner {
       display: flex;
-
-      & div:first-child {
-        margin-right: 20px;
-      }
     }
   }
 

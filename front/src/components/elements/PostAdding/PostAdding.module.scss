@@ -96,12 +96,18 @@
         font-weight: 500;
 
         margin-left: 12px;
+
+        transition: color 0.25s;
       }
 
       .icon {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        svg {
+          transition: fill 0.25s;
+        }
       }
 
       &:nth-child(3) {

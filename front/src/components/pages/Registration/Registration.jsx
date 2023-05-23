@@ -74,7 +74,7 @@ function Registration() {
           Create an account to continue and connect with the people.
         </p>
         <div className={styles['form-wrapper']}>
-          <div className={styles['buttons-wrapper']}>
+          {/* <div className={styles['buttons-wrapper']}>
             <button type="button" className={styles['auth-button']}>
               <AuthSvgSelector id="google" width="30px" height="30px" />
               Log in with Google
@@ -88,7 +88,7 @@ function Registration() {
             <span />
             <p>OR</p>
             <span />
-          </div>
+          </div> */}
           <Formik
             initialValues={{
               email: '',

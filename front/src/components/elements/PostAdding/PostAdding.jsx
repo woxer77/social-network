@@ -5,6 +5,9 @@ import { RemoveScroll } from 'react-remove-scroll';
 import { useFormik } from 'formik';
 import { useMutation } from 'react-query';
 import { useSelector } from 'react-redux';
+
+import emojiData from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import styles from './PostAdding.module.scss';
 
 import Input from '../../UI/Input/Input';
@@ -21,7 +24,12 @@ function PostAdding({
   customStyles
 }) {
   const [inputActive, setInputActive] = React.useState(false);
-  const [availability, setAvailability] = React.useState('');
+  const [availability, setAvailability] = React.useState('for all');
+  const [showEmojiPicker, setShowEmojiPicker] = React.useState(false);
+
+  const emojiPickerRef = React.useRef(null);
+  const emojiPickerButtonRef = React.useRef(null);
+
   const user = useSelector((state) => state.userReducer.user);
 
   const overlayStyles = !inputActive ? `${styles.overlay}` : `${styles.overlay} ${styles.active}`;
@@ -32,6 +40,16 @@ function PostAdding({
     creationDate: '',
     creationTime: '',
     userId: ''
+  };
+  const emojiPickerButtonStyles = {
+    icon: { fill: showEmojiPicker ? '#1565c0' : '#515f7a' },
+    text: { color: showEmojiPicker ? '#1565c0' : '#515f7a' }
+  };
+  const emojiPickerStyles = {
+    position: 'absolute',
+    top: inputActive ? '256px' : '143px',
+    left: '175px',
+    zIndex: 1
   };
 
   const inputDeactivateHandler = () => {
@@ -44,6 +62,7 @@ function PostAdding({
   );
 
   const onFormSubmit = async (data) => {
+    if (!data.text) return null;
     const localData = { ...data, availability };
     const { date, time } = getCurrentUTCDateTime();
 
@@ -52,13 +71,37 @@ function PostAdding({
     localData.userId = user.userId;
 
     console.log('data:', localData);
-    mutateHook.mutate(localData);
+    return mutateHook.mutate(localData);
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: onFormSubmit
   });
+
+  const handleEmojiClick = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
+  // eslint-disable-next-line consistent-return
+  const handleOutsideClick = (event) => {
+    if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
+      if (emojiPickerButtonRef.current.contains(event.target)) return null;
+      setShowEmojiPicker(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+  const addEmoji = (emoji) => {
+    formik.values.text += emoji.native;
+  };
 
   return (
     <>
@@ -84,9 +127,14 @@ function PostAdding({
               <div className={styles.icon}><PostSvgSelector id="image" /></div>
               <span className={styles['addition-text']}>Photo/Video</span>
             </div>
-            <div className={styles['addition-block']}>
-              <div className={styles.icon}><PostSvgSelector id="happySmile" /></div>
-              <span className={styles['addition-text']}>Feeling</span>
+            <div className={styles['addition-block']} onClick={handleEmojiClick} ref={emojiPickerButtonRef}>
+              <div className={styles.icon}><PostSvgSelector id="happySmile" style={emojiPickerButtonStyles.icon} /></div>
+              <span className={styles['addition-text']} style={emojiPickerButtonStyles.text}>Feeling</span>
+              {showEmojiPicker && (
+                <div ref={emojiPickerRef} style={emojiPickerStyles}>
+                  <Picker data={emojiData} onEmojiSelect={addEmoji} />
+                </div>
+              )}
             </div>
             <div className={styles['addition-block']}>
               <div className={styles.icon}><GlobalSvgSelector id="eyeOn" /></div>
@@ -95,6 +143,7 @@ function PostAdding({
                 onChange={(value) => setAvailability(value.value)}
                 placeholder="Availability"
                 styles={customStyles}
+                defaultValue={availabilityOptions[0]}
               />
             </div>
             <FilledButton customClassName={styles.button}>Post</FilledButton>
