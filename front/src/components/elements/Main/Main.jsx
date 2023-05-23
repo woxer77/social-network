@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Main.module.scss';
 
-// import PostsContainer from '../../../containers/elements/Posts/PostsContainer';
+import PostsContainer from '../../../containers/elements/Posts/PostsContainer';
 import PostAddingContainer from '../../../containers/elements/PostAdding/PostAddingContainer';
 // TODO: через middleware multer сделать загрузку изображений
 
@@ -13,7 +13,7 @@ function Main() {
       <div className={styles.container}>
         <div className={styles.posts}>
           <PostAddingContainer />
-          {/* <PostsContainer /> */}
+          <PostsContainer />
         </div>
         <div className={styles.events}>
           <div>event 1</div>
