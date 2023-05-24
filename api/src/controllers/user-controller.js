@@ -36,7 +36,9 @@ module.exports = {
       const userData = await userService.login(email, password);
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
 
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production' });
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: 'none'
+      });
 
       return res.json(userData);
     } catch (e) {
