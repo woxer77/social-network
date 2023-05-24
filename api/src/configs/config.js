@@ -14,5 +14,6 @@ module.exports = {
   smtpUser: process.env.SMTP_USER,
   smtpPassword: process.env.SMTP_PASSWORD,
   apiUrl: process.env.API_URL,
-  clientUrl: process.env.CLIENT_URL
+  clientUrl: process.env.CLIENT_URL,
+  developmentStage: process.env.DEVELOPMENT_STAGE
 };
