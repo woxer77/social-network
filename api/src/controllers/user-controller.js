@@ -37,7 +37,7 @@ module.exports = {
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
 
       res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: 'none'
+        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
       });
 
       return res.json(userData);
@@ -72,9 +72,11 @@ module.exports = {
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
+      console.log('api refreshToken:', refreshToken);
       const userData = await userService.refresh(refreshToken);
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
       res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true });
+      console.log('success');
 
       return res.json(userData);
     } catch (e) {
