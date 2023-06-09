@@ -1,9 +1,16 @@
+@import '../../../assets/styles/scss/config-styles/vars';
+
 .alert-wrapper {
   position: fixed;
+  top: $header-height;
   right: 20px;
   width: 300px;
   height: 100vh;
   overflow: auto;
+
+  z-index: $z-index-alert;
+
+  transition: visibility 0.5s;
 
   .alert {
     position: sticky;

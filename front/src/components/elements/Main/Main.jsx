@@ -13,14 +13,16 @@ function Main() {
       <div className={styles.container}>
         <div className={styles.posts}>
           <PostAddingContainer />
-          <PostsContainer />
+          <div className={styles['posts-wrapper']}>
+            <PostsContainer />
+          </div>
         </div>
-        <div className={styles.events}>
+        {/* <div className={styles.events}>
           <div>event 1</div>
           <div>event 2</div>
           <div>event 2</div>
           <div>event 2</div>
-        </div>
+        </div> */}
       </div>
     </main>
   );

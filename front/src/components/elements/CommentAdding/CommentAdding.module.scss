@@ -3,12 +3,18 @@
   justify-content: space-between;
   align-items: center;
 
-  .comment-input {
-    margin: 0 10px 0 10px;
-    padding-right: 10px;
-  }
+  form {
+    display: flex;
+    width: 100%;
 
-  .send-button {
-    padding: 16px;
+    .comment-input {
+      padding-right: 10px;
+
+      margin: 0 10px;
+    }
+
+    .send-button {
+      padding: 16px;
+    }
   }
 }

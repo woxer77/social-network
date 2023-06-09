@@ -1,41 +1,30 @@
 import React from 'react';
-import { /* useInfiniteQuery,  */useQuery } from 'react-query';
+import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 import Posts from '../../../components/elements/Posts/Posts';
-import { getPosts } from '../../../services/posts';
+import { getPostsForUser } from '../../../services/posts';
 import PostsLoading from '../../../components/elements/PostsLoading/PostsLoading';
-// import { getUserById } from '../../../services/users';
+import { getComments } from '../../../services/comments';
 
 function PostsContainer() {
-  const { isLoading, isError, data } = useQuery('get posts', () => getPosts());
-  /* const { isLoading, isError, data } = useInfiniteQuery('posts', ({ pageParam = 1 }) => getPosts(pageParam), {
-    getNextPageParam: (lastPage, pages) => {
-      console.log(pages);
-      return lastPage.info.page + 1;
-    }
-  }); */
+  const user = useSelector((state) => state.userReducer.user);
+
+  const { isLoading, isError, data } = useQuery(['getPosts'], () => getPostsForUser(user.userId));
   const posts = data?.data || [];
 
-  /* React.useEffect(() => {
-    let isFetching = false;
-    function onScroll(event) {
-      const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
+  const postsIdArr = posts.map((obj) => obj.post_id);
 
-      if (!isFetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
-        isFetching = true;
-        console.log('hi');
-        isFetching = false;
-      }
-    }
+  const { isLoading: isLoadingComments, isError: isErrorComments, data: commentsData } = useQuery(['getComments', postsIdArr], () => getComments(postsIdArr));
+  const comments = commentsData?.data || [];
 
-    document.addEventListener('scroll', onScroll);
-    return () => {
-      document.removeEventListener('scroll', onScroll);
-    };
-  }, []); */
+  const postsWithComments = posts.map((post) => {
+    const postComments = comments.filter((comment) => comment.post_id === post.post_id);
+    return { ...post, comments: postComments };
+  });
 
-  if (isLoading || isError) return (<PostsLoading />);
-  // TODO: если нет постов - отображать соответствующий текст
-  return (<Posts posts={posts} />);
+  if (isLoading || isError || isLoadingComments || isErrorComments) return (<PostsLoading />);
+
+  return (<Posts posts={postsWithComments} />);
 }
 
 export default PostsContainer;

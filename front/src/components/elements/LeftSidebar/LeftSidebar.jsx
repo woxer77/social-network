@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { useMutation } from 'react-query';
+import { useSelector } from 'react-redux';
 import styles from './LeftSidebar.module.scss';
 
 import LeftSidebarSvgSelector from '../../../assets/images/icons/left-sidebar/LeftSidebarSvgSelector';
@@ -9,19 +10,17 @@ import { logout } from '../../../services/auth';
 import { persistor } from '../../../redux/store';
 
 function LeftSidebar() {
+  const user = useSelector((state) => state.userReducer.user);
+
   const navItems = [
     { name: 'Feed', iconId: 'feed', href: '/' },
-    { name: 'My community', iconId: 'my-community', href: '/my-community' },
     { name: 'Messages', iconId: 'messages', href: '/messages' },
-    { name: 'Notifications', iconId: 'notifications', href: '/notifications' },
-    { name: 'Explore', iconId: 'explore', href: '/explore' },
-    { name: 'Profile', iconId: 'profile', href: '/profile' },
-    { name: 'Settings', iconId: 'settings', href: '/settings' },
+    { name: 'Profile', iconId: 'profile', href: `/profile/${user.userId}` },
     { name: 'Logout', iconId: 'logout', href: '/logout' }
   ];
 
   const mutateHook = useMutation(
-    'user logout',
+    ['logout', user.userId],
     () => logout(),
     {
       onSuccess() {
@@ -45,14 +44,14 @@ function LeftSidebar() {
           {navItems.map((elem, idx) => (
             elem.name !== 'Logout'
               ? (
-                <Link
-                  className={`${styles['nav-item']} ${idx || styles['nav-item_active']}`}
+                <NavLink
+                  className={({ isActive }) => (isActive ? `${styles['nav-item']} ${styles['nav-item_active']}` : styles['nav-item'])}
                   to={elem.href}
                   key={elem.iconId}
                 >
                   <LeftSidebarSvgSelector id={elem.iconId} className={styles['nav-icon']} />
                   <span className={styles['nav-text']}>{elem.name}</span>
-                </Link>
+                </NavLink>
               )
               : (
                 <button

@@ -9,8 +9,6 @@ module.exports = {
       availability: PropTypes.string.isRequired,
       creation_date: PropTypes.string.isRequired,
       creation_time: PropTypes.string.isRequired,
-      likes_number: PropTypes.number.isRequired,
-      comments_number: PropTypes.number.isRequired,
       images: PropTypes.string
     })
   )

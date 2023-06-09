@@ -22,9 +22,6 @@ function EmailActivation() {
           <Link className={styles['submit-wrapper']} to="/auth/login">
             <FilledButton customClassName={styles.submit}>Go to login form</FilledButton>
           </Link>
-          <p className={styles.text}>
-            Didn&apos;t receive an email? <span className="link">Resend</span>
-          </p>
         </div>
       </div>
     </div>

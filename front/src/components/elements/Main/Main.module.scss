@@ -12,12 +12,19 @@
     justify-content: space-between;
 
     max-width: $main-container-width;
+    min-height: 90vh;
     padding: $main-container-padding;
     margin: auto;
 
     .posts {
       flex-basis: 100%; /* 62% экрана занимает конкретно блок с постами */
-      margin-right: 30px;
+      //margin-right: 30px;
+
+      .posts-wrapper {
+        div:first-child {
+          margin-top: 0;
+        }
+      }
     }
 
     .events {

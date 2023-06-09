@@ -9,6 +9,8 @@
   padding: 15px;
   margin-top: 30px;
 
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+
   & > * {
     margin-bottom: 20px;
   }
@@ -22,11 +24,13 @@
 
     display: flex;
 
-    .icon {
-      width: 50px;
-      height: 50px;
+    a {
+      .icon {
+        width: 50px;
+        height: 50px;
 
-      margin-right: 20px;
+        margin-right: 20px;
+      }
     }
 
     .name-wrapper {
@@ -82,11 +86,17 @@
     .liked-users {
       display: flex;
 
-      .icon {
-        width: 28px;
-        height: 28px;
+      div:first-child {
+        margin-right: 7px;
+      }
 
-        margin-right: -5px;
+      a {
+        .icon {
+          width: 28px;
+          height: 28px;
+
+          margin-right: -5px;
+        }
       }
 
       .gray-circle {
@@ -101,6 +111,10 @@
 
     .info-inner {
       display: flex;
+
+      div:first-child {
+        margin-right: 7px;
+      }
     }
   }
 
@@ -123,9 +137,51 @@
 
       cursor: pointer;
 
+      color: $dark-gray-color;
+
+      transition: opacity 0.25s;
+
       svg:first-child {
         margin-right: 10px;
       }
+
+      &:hover {
+        opacity: 0.7;
+      }
     }
+
+    .liked {
+      color: red;
+
+      transition: color 0.25s;
+
+      svg {
+        fill: red;
+
+        transition: fill 0.25s;
+      }
+    }
+  }
+}
+
+.comments {
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  .more {
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 5px;
+    color: $dark-gray-color;
+    font-weight: 600;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .more:hover {
+    background-color: #e4e6eb;
   }
 }

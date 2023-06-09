@@ -8,11 +8,12 @@ import { ReactComponent as Male } from './male.svg';
 import { ReactComponent as Female } from './female.svg';
 import { ReactComponent as AccountCircle } from './account-circle.svg';
 import { ReactComponent as AccountBox } from './account-box.svg';
+import { ReactComponent as Country } from './country.svg';
+import { ReactComponent as Phone } from './phone.svg';
 
 import selectorProps from '../../../../propTypes/SvgSelector/selectorProps';
 
 function AuthSvgSelector({ id, ...props }) {
-  console.log('render auth');
   switch (id) {
   case 'google':
     return <Google {...props} />;
@@ -30,6 +31,10 @@ function AuthSvgSelector({ id, ...props }) {
     return <AccountCircle {...props} />;
   case 'regSurname':
     return <AccountBox {...props} />;
+  case 'country':
+    return <Country {...props} />;
+  case 'phone':
+    return <Phone {...props} />;
 
   default:
     return null;

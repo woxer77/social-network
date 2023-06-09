@@ -9,8 +9,6 @@ module.exports = {
   availability: PropTypes.string.isRequired,
   creationDate: PropTypes.string.isRequired,
   creationTime: PropTypes.string.isRequired,
-  likesNumber: PropTypes.number.isRequired,
-  commentsNumber: PropTypes.number.isRequired,
   orderedData: PropTypes.arrayOf(
     PropTypes.shape({
       img: PropTypes.string.isRequired,
@@ -18,5 +16,7 @@ module.exports = {
       cols: PropTypes.number
     })
   ),
-  imageListCols: PropTypes.number
+  imageListCols: PropTypes.number,
+  comments: PropTypes.array,
+  likes: PropTypes.array
 };

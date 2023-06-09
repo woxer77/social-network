@@ -8,7 +8,12 @@ import alertDefaultProps from '../../../propTypes/Alert/alertDefaultProps';
 
 function Alert({ isAlertActive, errorMessage }) {
   return (
-    <div className={styles['alert-wrapper']}>
+    <div
+      className={styles['alert-wrapper']}
+      style={{
+        visibility: isAlertActive ? 'visible' : 'hidden'
+      }}
+    >
       <MuiAlert
         className={styles.alert}
         style={{

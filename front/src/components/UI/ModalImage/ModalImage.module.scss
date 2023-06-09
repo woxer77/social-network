@@ -1,0 +1,10 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-img {
+    outline: none;
+    z-index: 1;
+  }
+}

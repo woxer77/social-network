@@ -7,11 +7,11 @@ import PostSvgSelector from '../../../assets/images/icons/post/PostSvgSelector';
 import sendButtonPropTypes from '../../../propTypes/SendButton/sendButtonPropTypes';
 import sendButtonDefaultPropTypes from '../../../propTypes/SendButton/sendButtonDefaultPropTypes';
 
-function SendButton({ customClassName }) {
+function SendButton({ customClassName, ...props }) {
   return (
-    <div className={`${styles.button} ${customClassName}`}>
+    <button type="submit" className={`${styles.button} ${customClassName}`} {...props}>
       <PostSvgSelector id="send" />
-    </div>
+    </button>
   );
 }
 

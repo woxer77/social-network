@@ -11,16 +11,16 @@ import inputDefaultProps from '../../../propTypes/Input/inputDefaultProps';
 import PostSvgSelector from '../../../assets/images/icons/post/PostSvgSelector';
 
 function Input({
-  customClassName, withButtons, multiline, setInputActive, ...props
+  customClassName, withButtons, multiline, setInputActive, handleEmojiClick, emojiPickerButtonRef, ...props
 }) {
   let buttons;
   if (withButtons) {
     buttons = {
       endAdornment: (
         <InputAdornment position="end">
-          <PostSvgSelector id="gif" />
-          <PostSvgSelector id="image" />
-          <PostSvgSelector id="happySmile" />
+          <div onClick={handleEmojiClick} ref={emojiPickerButtonRef}>
+            <PostSvgSelector id="happySmile" />
+          </div>
         </InputAdornment>
       )
     };

@@ -15,40 +15,36 @@ function PostContainer({
   availability,
   creationDate,
   creationTime,
-  likesNumber,
-  commentsNumber,
-  imagesData
+  imagesData,
+  comments
 }) {
-  const { dataArr: orderedData, imageListCols } = imageOrdering(imagesData);
+  const dataArr = imagesData !== '' ? imagesData.split(',').map((src) => ({
+    img: src
+  })) : [];
+  const { dataArr: orderedData, imageListCols } = imageOrdering(dataArr);
 
-  const { isLoading: userIsLoading, data: userData } = useQuery(`getUserById/${userId}`, () => getUserById(userId));
+  const { isLoading: userIsLoading, data: userData } = useQuery(['getUserById', userId], () => getUserById(userId));
   const user = userData?.data || {};
 
-  const { isLoading: usersListIsLoading, data: usersListData } = useQuery(`getUsersWhoLikedPost/${postId}`, () => getUsersWhoLikedPost(postId));
-  // eslint-disable-next-line no-unused-vars
-  const usersWhoLikedPost = usersListData?.data.map((e) => e.user_id) || [];
+  const { isLoading: postLikesIsLoading, data: postLikes } = useQuery(['getUsersWhoLikedPost', postId], () => getUsersWhoLikedPost(postId));
+  const usersId = postLikes?.data || {};
 
-  /* const { isLoading: usersAvatarsIsLoading, data: usersAvatarsData } = useQuery(`getUsersAvatars/${usersWhoLikedPost}`, () => getUsersAvatars(usersWhoLikedPost));
-  const usersAvatars = usersAvatarsData?.data || []; */
-  // TODO: делать следующее после того, как будет готов функционал загрузки/выгрузки изображений с помощью multer:
-  // TODO: доставать из базы от 1 до 4 аватаров (в зависимости от размера массива usersWhoLikedPost, с помощью select ... whereIn('id', [1, 2, 3]))
-  // TODO: после отрисовывать эти 1-4 аватаров в компоненте Post, а если их больше 4 - делать доп. кружок с цифрой оставшихся юзеров, которые лайкнули пост
-
-  if (userIsLoading || usersListIsLoading) return (<PostsLoading />);
+  if (userIsLoading || postLikesIsLoading) return (<PostsLoading />);
   return (
     <Post
       postId={postId}
       userId={userId}
       firstName={user.first_name}
       secondName={user.second_name}
+      avatar={user.avatar}
       text={text}
       availability={availability}
       creationDate={creationDate}
       creationTime={creationTime}
-      likesNumber={likesNumber}
-      commentsNumber={commentsNumber}
       orderedData={orderedData}
       imageListCols={imageListCols}
+      comments={comments}
+      likes={usersId}
       key={`post-${postId}`}
     />
   );

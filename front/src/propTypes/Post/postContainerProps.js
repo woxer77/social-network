@@ -7,7 +7,7 @@ module.exports = {
   availability: PropTypes.string.isRequired,
   creationDate: PropTypes.string.isRequired,
   creationTime: PropTypes.string.isRequired,
-  likesNumber: PropTypes.number.isRequired,
-  commentsNumber: PropTypes.number.isRequired,
-  imagesData: PropTypes.string
+  imagesData: PropTypes.string,
+  comments: PropTypes.array,
+  likes: PropTypes.array
 };

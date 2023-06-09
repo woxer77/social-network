@@ -10,10 +10,14 @@ const initialState = {
     userId: '',
     firstName: '',
     secondName: '',
+    avatar: '',
     email: '',
     password: '',
     dateOfBirth: '',
     gender: '',
+    following: '',
+    followers: '',
+    isEmailActivated: false,
     isAuth: false
   }
 };
@@ -46,6 +50,15 @@ const userSlice = createSlice({
     },
     setUser(state, action) {
       state.user = action.payload;
+    },
+    setAvatar(state, action) {
+      state.user.avatar = action.payload;
+    },
+    setFollowing(state, action) {
+      state.user.following = action.payload;
+    },
+    setFollowers(state, action) {
+      state.user.followers = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -69,7 +82,7 @@ const userSlice = createSlice({
 });
 
 export const {
-  setEmail, setUser, setAuth
+  setEmail, setUser, setAuth, setAvatar, setFollowing, setFollowers
 } = userSlice.actions;
 
 export default userSlice.reducer;

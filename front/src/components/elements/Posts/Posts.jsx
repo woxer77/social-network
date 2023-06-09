@@ -12,9 +12,8 @@ function Posts({ posts }) {
         availability,
         creation_date,
         creation_time,
-        likes_number,
-        comments_number,
-        images
+        images,
+        comments
       }) => (
         <PostContainer
           postId={post_id}
@@ -23,9 +22,8 @@ function Posts({ posts }) {
           availability={availability}
           creationDate={creation_date}
           creationTime={creation_time}
-          likesNumber={likes_number}
-          commentsNumber={comments_number}
           imagesData={images}
+          comments={comments}
           key={`postContainer-${post_id}`}
         />
       ))}

@@ -35,7 +35,7 @@ function Registration() {
   const initialDateOfBirth = dayjs(Date.now() - 567993600000);
 
   const mutateHook = useMutation(
-    'user registration',
+    ['registration'],
     (data) => registration(data),
     {
       onSuccess(res) {
@@ -74,21 +74,6 @@ function Registration() {
           Create an account to continue and connect with the people.
         </p>
         <div className={styles['form-wrapper']}>
-          {/* <div className={styles['buttons-wrapper']}>
-            <button type="button" className={styles['auth-button']}>
-              <AuthSvgSelector id="google" width="30px" height="30px" />
-              Log in with Google
-            </button>
-            <button type="button" className={styles['auth-button']}>
-              <AuthSvgSelector id="facebook" width="30px" height="30px" />
-              Log in with Facebook
-            </button>
-          </div>
-          <div className={styles.separator}>
-            <span />
-            <p>OR</p>
-            <span />
-          </div> */}
           <Formik
             initialValues={{
               email: '',

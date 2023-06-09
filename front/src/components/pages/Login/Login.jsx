@@ -30,12 +30,13 @@ function Login() {
   const dispatch = useDispatch();
 
   const mutateHook = useMutation(
-    'user login',
+    ['login'],
     (data) => login(data.email, data.password),
     {
       onSuccess(res) {
         const { user } = res.data;
         const { accessToken } = res.data;
+        console.log('onSuccess');
 
         localStorage.setItem('token', accessToken);
 
@@ -54,7 +55,7 @@ function Login() {
 
     mutateHook.mutate(localData);
   };
-
+  console.log('login page');
   return (
     <>
       <Alert isAlertActive={isAlertActive} errorMessage={errorMessage} />

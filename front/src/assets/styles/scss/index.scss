@@ -17,7 +17,7 @@ body {
 
 .page {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   color: $dark-gray-color;
   font-weight: normal;
 }
@@ -40,4 +40,15 @@ body {
   &:hover {
     border-bottom: 2px solid black;
   }
+}
+
+.menu-text {
+  font-weight: 600;
+
+  margin-left: 10px;
+  color: $dark-gray-color;
+}
+
+.disable-scroll {
+  overflow: hidden;
 }

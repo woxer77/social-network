@@ -13,6 +13,8 @@ export const HeaderAuthLazy = useLazyComponent(() => import('./components/elemen
 export const LoginLazy = useLazyComponent(() => import('./components/pages/Login/Login'));
 const EmailActivationLazy = useLazyComponent(() => import('./components/pages/EmailActivation/EmailActivation'));
 const RegistrationLazy = useLazyComponent(() => import('./components/pages/Registration/Registration'));
+const ProfileContainerLazy = useLazyComponent(() => import('./containers/elements/Profile/ProfileContainer'));
+const MessagesLazy = useLazyComponent(() => import('./components/pages/Messages/Messages'));
 const NotFoundLazy = useLazyComponent(() => import('./components/pages/NotFound/NotFound'));
 
 export default function AppRoutes() {
@@ -30,6 +32,8 @@ export default function AppRoutes() {
         {/* TODO: implement Header component in some pages */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Home />} />
+          <Route path="profile/:id" element={<ProfileContainerLazy />} />
+          <Route path="messages" element={<MessagesLazy />} />
         </Route>
         <Route element={<UnprotectedRoute />}>
           <Route
