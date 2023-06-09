@@ -92,6 +92,9 @@ function Profile({
 
         setAvatarState(resAvatar);
         dispatch(setAvatar(resAvatar));
+      },
+      onError: (err) => {
+        console.log('avatar uploading error:', err);
       }
     }
   );
