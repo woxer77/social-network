@@ -187,6 +187,7 @@ module.exports = {
   async uploadSingle(req, res, next) {
     try {
       if (req.file) {
+        console.log('in uploadSingle, req.file', req.file);
         return res.json(req.file);
       }
       return null;
