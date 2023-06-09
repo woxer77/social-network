@@ -1,7 +1,9 @@
 const multerMiddleware = require('multer');
 
+console.log('multerMiddleware');
 const storage = multerMiddleware.diskStorage({
   destination(req, file, cb) {
+    console.log('destination, req, file, cb', req, file, cb);
     cb(null, './src/assets/images');
   },
   filename(req, file, cb) {
