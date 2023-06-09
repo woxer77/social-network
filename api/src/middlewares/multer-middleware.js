@@ -1,10 +1,12 @@
 const multerMiddleware = require('multer');
+const { developmentStage } = require('../configs/config');
 
-console.log('multerMiddleware');
+const destinationPath = developmentStage === 'development' ? './src/assets/images' : '../../assets/images';
+
 const storage = multerMiddleware.diskStorage({
   destination(req, file, cb) {
     console.log('destination, req, file, cb', req, file, cb);
-    cb(null, './src/assets/images');
+    cb(null, destinationPath);
   },
   filename(req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`);
