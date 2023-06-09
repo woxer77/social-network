@@ -6,6 +6,8 @@ const tokenService = require('./token-service');
 const config = require('../configs/config');
 const ApiError = require('../exceptions/api-error');
 
+/* eslint-disable no-param-reassign */
+
 module.exports = {
   async registration(email, password, firstName, secondName, dateOfBirth, gender) {
     const candidate = await userDbService.getUserByEmail(email);
@@ -30,8 +32,12 @@ module.exports = {
       email: user.email,
       firstName: user.first_name,
       secondName: user.second_name,
+      avatar: user.avatar,
       dateOfBirth: user.date_of_birth,
-      gender: user.gender
+      gender: user.gender,
+      isEmailActivated: user.is_email_activated,
+      following: user.following,
+      followers: user.followers
     };
 
     await mailService.sendActivationLink(email, `${config.apiUrl}/email-activation/${activationLink}`);
@@ -67,8 +73,12 @@ module.exports = {
       email: user.email,
       firstName: user.first_name,
       secondName: user.second_name,
+      avatar: user.avatar,
       dateOfBirth: user.date_of_birth,
-      gender: user.gender
+      gender: user.gender,
+      isEmailActivated: user.is_email_activated,
+      following: user.following,
+      followers: user.followers
     };
     const tokens = tokenService.generateTokens(userPayload);
     await tokenService.saveToken(user.user_id, tokens.refreshToken);
@@ -94,14 +104,17 @@ module.exports = {
     }
 
     const user = await userDbService.getUserById(tokenFromDb.user_id);
-
     const userPayload = {
       userId: user.user_id,
       email: user.email,
       firstName: user.first_name,
       secondName: user.second_name,
+      avatar: user.avatar,
       dateOfBirth: user.date_of_birth,
-      gender: user.gender
+      gender: user.gender,
+      isEmailActivated: user.is_email_activated,
+      following: user.following,
+      followers: user.followers
     };
     const tokens = tokenService.generateTokens(userPayload);
     await tokenService.saveToken(user.user_id, tokens.refreshToken);
@@ -116,5 +129,77 @@ module.exports = {
     }
 
     return user;
-  }
+  },
+
+  async getUsersByIds(usersIds) {
+    const users = await userDbService.getUsersByIds(usersIds);
+    if (!users) {
+      throw ApiError.BadRequest('Users with this ids were not found.');
+    }
+
+    const usersPayload = users.map((user) => ({
+      userId: user.user_id,
+      email: user.email,
+      firstName: user.first_name,
+      secondName: user.second_name,
+      avatar: user.avatar,
+      dateOfBirth: user.date_of_birth,
+      gender: user.gender,
+      isEmailActivated: user.is_email_activated,
+      following: user.following,
+      followers: user.followers
+    }));
+
+    return usersPayload;
+  },
+
+  async updateUserCoverPhoto(userId, filename) {
+    const coverPhoto = await userDbService.updateUserCoverPhoto(userId, filename);
+
+    return coverPhoto;
+  },
+
+  async updateUserAvatar(userId, filename) {
+    const avatar = await userDbService.updateUserAvatar(userId, filename);
+
+    return avatar;
+  },
+
+  async updateUser(userId, data) {
+    const candidate = await userDbService.getUserByEmail(data.email);
+
+    if (candidate && (candidate.email === data.email && candidate.user_id !== userId)) {
+      throw ApiError.BadRequest('User with this email already exists.');
+    } else {
+      const activationLink = uuid.v4();
+      data.is_email_activated = false;
+      data.activation_link = activationLink;
+      await mailService.sendActivationLink(data.email, `${config.apiUrl}/email-activation/${activationLink}`);
+    }
+
+    if (!data.password) {
+      delete data.password;
+    } else {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
+    await userDbService.updateUser(userId, data);
+  },
+
+  async updateFollowing(userId, userFollowing) {
+    const userFollowingPayload = await userDbService.updateFollowing(userId, userFollowing);
+
+    return userFollowingPayload;
+  },
+
+  async updateFollowers(userId, userFollowers) {
+    const userFollowersPayload = await userDbService.updateFollowers(userId, userFollowers);
+
+    return userFollowersPayload;
+  },
+
+  async getUserFollowers(userId) {
+    const userFollowers = await userDbService.getUserFollowers(userId);
+
+    return userFollowers;
+  },
 };

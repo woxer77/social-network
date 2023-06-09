@@ -14,6 +14,93 @@ module.exports = {
     }
   },
 
+  async getUsersByIds(req, res, next) {
+    try {
+      const usersIds = req.body;
+      const users = await userService.getUsersByIds(usersIds);
+
+      res.status(200).json(users);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async updateUserCoverPhoto(req, res, next) {
+    try {
+      const { userId, filename } = req.body;
+      const coverPhoto = await userService.updateUserCoverPhoto(userId, filename);
+
+      res.status(200).json(coverPhoto);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async updateUserAvatar(req, res, next) {
+    try {
+      const { userId, filename } = req.body;
+      const avatar = await userService.updateUserAvatar(userId, filename);
+
+      res.status(200).json(avatar);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async updateUser(req, res, next) {
+    try {
+      const { userId, data } = req.body;
+      const dataWithUnderline = {
+        first_name: data.firstName,
+        second_name: data.secondName,
+        email: data.email,
+        country: data.country,
+        phone: data.phone,
+        password: data.password,
+        date_of_birth: data.dateOfBirth,
+        gender: data.gender
+      };
+      await userService.updateUser(userId, dataWithUnderline);
+
+      res.status(200).json({ message: 'You have successfully updated your account info' });
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async updateFollowing(req, res, next) {
+    try {
+      const { userId, userFollowing } = req.body;
+      const userFollowingPayload = await userService.updateFollowing(userId, userFollowing);
+
+      res.status(200).json(userFollowingPayload[0]?.following);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async updateFollowers(req, res, next) {
+    try {
+      const { userId, userFollowers } = req.body;
+      const userFollowersPayload = await userService.updateFollowers(userId, userFollowers);
+
+      res.status(200).json(userFollowersPayload[0]?.followers);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async getUserFollowers(req, res, next) {
+    try {
+      const { userId } = req.params;
+      const userFollowers = await userService.getUserFollowers(userId);
+
+      res.status(200).json(userFollowers.followers);
+    } catch (e) {
+      next(e);
+    }
+  },
+
   async registration(req, res, next) {
     try {
       const {
@@ -22,7 +109,9 @@ module.exports = {
       const userData = await userService.registration(email, password, firstName, secondName, dateOfBirth, gender);
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
 
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true });
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
+      });
 
       return res.json(userData);
     } catch (e) {
@@ -72,13 +161,35 @@ module.exports = {
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-      console.log('api refreshToken:', refreshToken);
       const userData = await userService.refresh(refreshToken);
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true });
-      console.log('success');
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
+      });
 
       return res.json(userData);
+    } catch (e) {
+      return next(e);
+    }
+  },
+
+  async uploadMultiple(req, res, next) {
+    try {
+      if (req.files) {
+        return res.json(req.files);
+      }
+      return null;
+    } catch (e) {
+      return next(e);
+    }
+  },
+
+  async uploadSingle(req, res, next) {
+    try {
+      if (req.file) {
+        return res.json(req.file);
+      }
+      return null;
     } catch (e) {
       return next(e);
     }

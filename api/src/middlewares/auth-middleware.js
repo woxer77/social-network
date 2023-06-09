@@ -4,8 +4,6 @@ const tokenService = require('../services/token-service');
 module.exports = function (req, res, next) {
   try {
     const authorizationHeader = req.headers.authorization;
-    // почему-то когда перезаписывается accessToken - он не сразу обновляется в req.headers.authorization..
-    console.log('authorizationHeader:', authorizationHeader);
     if (!authorizationHeader) {
       return next(ApiError.UnauthorizedException());
     }

@@ -3,6 +3,7 @@ const config = require('../configs/config');
 
 module.exports = {
   sendActivationLink: async (to, link) => {
+    console.log('sendActivationLink', to, link);
     const transporter = nodemailer.createTransport({
       host: config.smtpHost,
       port: config.smtpPort,
