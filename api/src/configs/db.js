@@ -8,5 +8,6 @@ module.exports = require('knex')({
     user: config.dbUser,
     password: config.dbPassword,
     database: config.dbDatabase
-  }
+  },
+  ssl: true
 });
