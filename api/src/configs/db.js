@@ -7,7 +7,7 @@ module.exports = require('knex')({
     port: config.dbPort,
     user: config.dbUser,
     password: config.dbPassword,
-    database: config.dbDatabase
-  },
-  ssl: true
+    database: config.dbDatabase,
+    ssl: true
+  }
 });
