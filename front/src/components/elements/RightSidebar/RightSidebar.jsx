@@ -1,28 +1,36 @@
 import React from 'react';
-
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Search from '../../UI/Search/Search';
-
 import styles from './RightSidebar.module.scss';
 import GlobalSvgSelector from '../../../assets/images/icons/global/GlobalSvgSelector';
 import { getUsersByIds } from '../../../services/users';
 import { url } from '../../../configs/config';
 
 function RightSidebar() {
-  const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector(state => state.userReducer.user);
 
-  const { data } = useQuery(['getUsersByIds', user.following], () => getUsersByIds(user.following));
+  const { data } = useQuery(
+    ['getUsersByIds', user?.following],
+    () => getUsersByIds(user?.following),
+    { enabled: !!user?.following }
+  );
   const following = data?.data || [];
 
   let content;
-  if (user.following.length !== 0) {
-    content = following.map((person) => (
+  if (user?.following && user.following.length !== 0) {
+    content = following.map(person => (
       <Link to={`/profile/${person.userId}`} key={`${user.userId}-following-${person.userId}`}>
         <div className={styles['following-block']}>
-          <img className="icon" src={`${url}/images/${person.avatar}`} alt={`${person.userId}-avatar`} />
-          <div className={styles.name}>{person.firstName} {person.secondName}</div>
+          <img
+            className="icon"
+            src={`${url}/images/${person.avatar}`}
+            alt={`${person.userId}-avatar`}
+          />
+          <div className={styles.name}>
+            {person.firstName} {person.secondName}
+          </div>
         </div>
       </Link>
     ));
@@ -37,11 +45,11 @@ function RightSidebar() {
         <div className={styles.following}>
           <div className={styles.top}>
             <span className={styles.title}>You are following</span>
-            <div className={styles.ellipsis}><GlobalSvgSelector id="ellipsis" /></div>
+            <div className={styles.ellipsis}>
+              <GlobalSvgSelector id="ellipsis" />
+            </div>
           </div>
-          <div className={styles.list}>
-            {content}
-          </div>
+          <div className={styles.list}>{content}</div>
         </div>
       </div>
     </aside>

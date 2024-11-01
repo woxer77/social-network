@@ -41,9 +41,9 @@ function Post({
   const creationDateValidFormat = convertDateToValidFormat(new Date(creationDate));
   const { localDate, localTime } = convertUTCToLocal(creationDateValidFormat, creationTime);
   const creationMs = Date.parse(`${localDate} ${localTime}`);
-
   const finalCreationDate = convertTime(Date.now() - creationMs);
-  const user = useSelector((state) => state.userReducer.user);
+
+  const user = useSelector(state => state.userReducer.user);
 
   const [openModalImage, setOpenModalImage] = React.useState(false);
   const [modalImageSrc, setModalImageSrc] = React.useState('');
@@ -56,15 +56,11 @@ function Post({
 
   const queryClient = useQueryClient();
 
-  const mutateHookDelete = useMutation(
-    ['deletePost', postId],
-    () => deletePost(postId),
-    {
-      onSuccess() {
-        window.location.reload();
-      }
+  const mutateHookDelete = useMutation(['deletePost', postId], () => deletePost(postId), {
+    onSuccess() {
+      window.location.reload();
     }
-  );
+  });
   const mutateHookLike = useMutation(
     ['likePost', [postId, user.userId]],
     () => likePost(postId, user.userId),
@@ -75,8 +71,8 @@ function Post({
       },
       onError(error) {
         setIsLoading(false);
-        setIsLiked((prevState) => !prevState);
-        setLikesCount((prevCount) => (isLiked ? prevCount + 1 : prevCount - 1));
+        setIsLiked(prevState => !prevState);
+        setLikesCount(prevCount => (isLiked ? prevCount + 1 : prevCount - 1));
         console.error(error);
       }
     }
@@ -90,13 +86,13 @@ function Post({
     if (isLoading) return;
     setIsLoading(true);
 
-    setIsLiked((prevState) => !prevState);
-    setLikesCount((prevCount) => (isLiked ? prevCount - 1 : prevCount + 1));
+    setIsLiked(prevState => !prevState);
+    setLikesCount(prevCount => (isLiked ? prevCount - 1 : prevCount + 1));
 
     mutateHookLike.mutate();
   };
 
-  const handleImage = (src) => {
+  const handleImage = src => {
     setModalImageSrc(src);
     setOpenModalImage(true);
   };
@@ -113,7 +109,11 @@ function Post({
 
   return (
     <>
-      <ModalImage openModalImage={openModalImage} setOpenModalImage={setOpenModalImage} modalImageSrc={modalImageSrc} />
+      <ModalImage
+        openModalImage={openModalImage}
+        setOpenModalImage={setOpenModalImage}
+        modalImageSrc={modalImageSrc}
+      />
       <div className={styles.post}>
         <div className={styles.author}>
           <Link to={`/profile/${userId}`}>
@@ -128,9 +128,7 @@ function Post({
               {secondName} {firstName}
             </span>
             <div>
-              <span className={styles.time}>
-                {finalCreationDate}
-              </span>
+              <span className={styles.time}>{finalCreationDate}</span>
               <span className={styles.availability}>{availability}</span>
             </div>
           </div>
@@ -143,17 +141,10 @@ function Post({
             </CustomMenu>
           )}
         </div>
-        <div className={styles.text}>
-          {text}
-        </div>
+        <div className={styles.text}>{text}</div>
         {orderedData && (
-          <ImageList
-            variant="quilted"
-            cols={imageListCols}
-            gap={8}
-            rowHeight={75}
-          >
-            {orderedData.map((item) => (
+          <ImageList variant="quilted" cols={imageListCols} gap={8} rowHeight={75}>
+            {orderedData.map(item => (
               <ImageListItem
                 key={item.img}
                 cols={item.cols || 1}
@@ -182,7 +173,11 @@ function Post({
           </div>
         </div>
         <div className={styles.buttons}>
-          <button type="button" className={`${styles.button} ${isLiked ? styles.liked : ''}`} onClick={handleLikePost}>
+          <button
+            type="button"
+            className={`${styles.button} ${isLiked ? styles.liked : ''}`}
+            onClick={handleLikePost}
+          >
             <PostSvgSelector id="like" />
             <span className={styles['button-text']}>Like</span>
           </button>
@@ -195,14 +190,11 @@ function Post({
       </div>
       {!!comments.length && (
         <div className={styles.comments}>
-          {comments.map((comment, idx) => (
+          {comments.map((comment, idx) =>
             idx < 3 || showAllComments ? (
-              <CommentContainer
-                comment={comment}
-                key={`comment-${comment.comment_id}`}
-              />
+              <CommentContainer comment={comment} key={`comment-${comment.comment_id}`} />
             ) : null
-          ))}
+          )}
           {!showAllComments && comments.length > 3 && (
             <button type="button" className={styles.more} onClick={handleShowAllComments}>
               Load more

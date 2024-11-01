@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux';
 import Search from '../../UI/Search/Search';
 
 import styles from './Header.module.scss';
-import { url } from '../../../configs/config';
+import { defaultAvatar, url } from '../../../configs/config';
 
 function Header() {
-  const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector(state => state.userReducer.user);
 
   return (
     <header className={styles.header}>
@@ -31,7 +31,7 @@ function Header() {
           <Link to={`/profile/${user.userId}`}>
             <img
               className={`icon ${styles['profile-icon']}`}
-              src={`${url}/images/${user.avatar}`}
+              src={`${url}/images/${user.avatar || defaultAvatar}`}
               alt={`avatar-user-${user.userId}`}
             />
           </Link>

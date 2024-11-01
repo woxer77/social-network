@@ -23,11 +23,13 @@ const uploadRouter = require('./src/routes/upload');
 
 const app = express();
 
-app.use(cors({
-  credentials: true,
-  origin: config.clientUrl,
-  preflightContinue: false
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: config.clientUrl,
+    preflightContinue: false
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -55,7 +57,7 @@ db.raw('SELECT 1')
   .then(() => {
     console.log('PostgreSQL connected');
   })
-  .catch((e) => {
+  .catch(e => {
     console.log('PostgreSQL not connected');
     console.error(e);
   });
@@ -71,31 +73,26 @@ const io = socket(server, {
 });
 
 const users = {};
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   // When a user connects
-  socket.on('userConnected', (userId) => {
+  socket.on('userConnected', userId => {
     users[userId] = socket.id;
   });
 
   // When a user sends a message
-  socket.on('sendMessage', ({ message_id, users: usersProp, text }) => {
-    const senderId = usersProp[0];
+  socket.on('sendMessage', message => {
+    const { users: usersProp } = message;
     const receiverId = usersProp[1];
-
-    if (senderId !== socket.id) {
-      // If the sender is not the current user, don't broadcast the message
-      return;
-    }
 
     const receiverSocketId = users[receiverId];
     if (receiverSocketId) {
-      io.to(receiverSocketId).emit('newMessage', { message_id, users: usersProp, text });
+      io.to(receiverSocketId).emit('newMessage', message);
     }
   });
 
   // When a user disconnects
   socket.on('disconnect', () => {
-    const userId = Object.keys(users).find((key) => users[key] === socket.id);
+    const userId = Object.keys(users).find(key => users[key] === socket.id);
     delete users[userId];
   });
 });

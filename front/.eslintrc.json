@@ -3,10 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb"
-  ],
+  "extends": ["plugin:react/recommended", "airbnb"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -15,9 +12,7 @@
     "sourceType": "module"
   },
   "ignorePatterns": ["ErrorBoundary.jsx"],
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "rules": {
     "no-var": "error",
     "semi": "error",
@@ -26,28 +21,22 @@
     "no-multiple-empty-lines": "error",
     "prefer-const": "error",
     "no-use-before-define": "error",
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "indent": [
-      "error",
-      2
-    ],
+    "quotes": ["error", "single"],
+    "indent": ["error", 2],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     ],
     "react/jsx-one-expression-per-line": "off",
     "linebreak-style": ["off", "windows"],
-    "comma-dangle": ["error", {
-      "imports": "never"
-    }],
+    "comma-dangle": [
+      "error",
+      {
+        "imports": "never"
+      }
+    ],
     "react/jsx-props-no-spreading": "warn",
     "import/no-named-as-default": "warn",
     "import/no-named-as-default-member": "warn",
@@ -58,6 +47,14 @@
     "eqeqeq": "warn",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
-    "no-param-reassign": "warn"
+    "no-param-reassign": "warn",
+    "arrow-parens": "warn",
+    "implicit-arrow-linebreak": "warn",
+    "function-paren-newline": "warn",
+    "object-curly-newline": "warn",
+    "operator-linebreak": "warn",
+    "no-confusing-arrow": "warn",
+    "nonblock-statement-body-position": "warn",
+    "curly": "warn"
   }
 }

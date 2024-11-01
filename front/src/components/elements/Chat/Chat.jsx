@@ -16,7 +16,7 @@ import isEqual from '../../../helpers/isEqual';
 
 /* eslint-disable react/prop-types, consistent-return, no-use-before-define */
 function Chat({ receiver }) {
-  const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector(state => state.userReducer.user);
 
   const emojiPickerRef = React.useRef(null);
   const emojiPickerButtonRef = React.useRef(null);
@@ -38,14 +38,16 @@ function Chat({ receiver }) {
     zIndex: 1
   };
 
-  const { data: messagesData } = useQuery(['getMessages', user.userId, receiver.userId], () => getMessages({ senderId: user.userId, receiverId: receiver.userId }));
+  const { data: messagesData } = useQuery(['getMessages', user.userId, receiver.userId], () =>
+    getMessages({ senderId: user.userId, receiverId: receiver.userId })
+  );
   const messages = messagesData?.data || [];
 
   const handleEmojiClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleOutsideClick = (event) => {
+  const handleOutsideClick = event => {
     if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
       if (emojiPickerButtonRef.current.contains(event.target)) return null;
       setShowEmojiPicker(false);
@@ -61,24 +63,26 @@ function Chat({ receiver }) {
   }, []);
 
   React.useEffect(() => {
-    if (messagesState.length !== 0 && divForScrollRef.current !== null) divForScrollRef.current.scrollIntoView();
+    if (messagesState.length !== 0 && divForScrollRef.current !== null)
+      divForScrollRef.current.scrollIntoView();
   }, [messagesState, divForScrollRef]);
 
   React.useEffect(() => {
     socket.current = io(url);
     socket.current.emit('userConnected', user.userId);
 
-    socket.current.on('newMessage', (message) => {
-      setMessagesState((prevState) => [...prevState, message]);
+    socket.current.on('newMessage', message => {
+      setMessagesState(prevState => [...prevState, message]);
       // Update your state with the new message here
       console.log('update message state', message);
     });
 
     return () => {
       // Disconnect the user when the component is unmounted
+      socket.current.off('newMessage');
       socket.current.disconnect();
     };
-  }, []);
+  }, [user.userId]);
 
   React.useEffect(() => {
     if (!isEqual(messages, messagesState)) {
@@ -88,17 +92,18 @@ function Chat({ receiver }) {
 
   const mutateMessageHook = useMutation(
     ['addMessage', [user.userId, receiver.userId]],
-    (data) => addMessage(data),
+    data => addMessage(data),
     {
       onSuccess(res) {
         const messagesAfterAdding = res.data;
-        socket.current.emit('sendMessage', messagesAfterAdding[messagesAfterAdding.length - 1]);
+        const newMessage = messagesAfterAdding[messagesAfterAdding.length - 1];
+        socket.current.emit('sendMessage', newMessage);
         setMessagesState(messagesAfterAdding);
       }
     }
   );
 
-  const onFormSubmit = async (data) => {
+  const onFormSubmit = async data => {
     if (data.text.trim() === '') return null;
 
     const localData = { ...data };
@@ -118,31 +123,47 @@ function Chat({ receiver }) {
   });
 
   const buttonStyles = {
-    backgroundColor: (formik.values.text.trim() !== '' ? '#EBF2FF' : '#EBEEF5')
+    backgroundColor: formik.values.text.trim() !== '' ? '#EBF2FF' : '#EBEEF5'
   };
 
-  const addEmoji = (emoji) => {
+  const addEmoji = emoji => {
     formik.setFieldValue('text', formik.values.text + emoji.native);
   };
 
   return (
     <div className={styles.chat}>
-      <div
-        className={styles.header}
-        key={`chat-header-${user.userId}`}
-      >
+      <div className={styles.header} key={`chat-header-${user.userId}`}>
         <Link to={`/profile/${user.userId}`}>
-          <img className="icon" src={`${url}/images/${user.avatar}`} alt={`${user.userId}-avatar`} />
+          <img
+            className="icon"
+            src={`${url}/images/${user.avatar}`}
+            alt={`${user.userId}-avatar`}
+          />
         </Link>
-        <div className={styles.name}>{user.firstName} {user.secondName}</div>
+        <div className={styles.name}>
+          {user.firstName} {user.secondName}
+        </div>
       </div>
       <div className={styles.line} />
       <div className={styles['main-wrapper']}>
         <div className={styles.main}>
-          {messagesState.map((message) => (
-            <div className={`${styles.message} ${message.users[0] === user.userId ? styles.sender : styles.receiver}`} key={message.message_id}>
-              <Link to={`/profile/${message.users[0] === user.userId ? user.userId : receiver.userId}`}>
-                <img className="icon" src={`${url}/images/${message.users[0] === user.userId ? user.avatar : receiver.avatar}`} alt={`${message.users[0] === user.userId ? user.userId : receiver.userId}-avatar`} />
+          {messagesState.map((message, idx) => (
+            <div
+              className={`${styles.message} ${
+                message.users[0] === user.userId ? styles.sender : styles.receiver
+              }`}
+              key={`${message.message_id}-${idx}`}
+            >
+              <Link
+                to={`/profile/${message.users[0] === user.userId ? user.userId : receiver.userId}`}
+              >
+                <img
+                  className="icon"
+                  src={`${url}/images/${
+                    message.users[0] === user.userId ? user.avatar : receiver.avatar
+                  }`}
+                  alt={`${message.users[0] === user.userId ? user.userId : receiver.userId}-avatar`}
+                />
               </Link>
               <p className={styles.text}>{message.text}</p>
             </div>
@@ -152,8 +173,19 @@ function Chat({ receiver }) {
       </div>
       <div className={styles.line} />
       <form onSubmit={formik.handleSubmit}>
-        <Input customClassName={styles['comment-input']} withButtons handleEmojiClick={handleEmojiClick} emojiPickerButtonRef={emojiPickerButtonRef} value={formik.values.text} onChange={formik.handleChange} />
-        <SendButton customClassName={styles['send-button']} style={buttonStyles} disabled={formik.values.text.trim() === ''} />
+        <Input
+          customClassName={styles['comment-input']}
+          withButtons
+          handleEmojiClick={handleEmojiClick}
+          emojiPickerButtonRef={emojiPickerButtonRef}
+          value={formik.values.text}
+          onChange={formik.handleChange}
+        />
+        <SendButton
+          customClassName={styles['send-button']}
+          style={buttonStyles}
+          disabled={formik.values.text.trim() === ''}
+        />
         {showEmojiPicker && (
           <div ref={emojiPickerRef} style={emojiPickerStyles}>
             <Picker data={emojiData} onEmojiSelect={addEmoji} />

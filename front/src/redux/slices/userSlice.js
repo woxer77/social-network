@@ -22,21 +22,18 @@ const initialState = {
   }
 };
 
-export const checkAuth = createAsyncThunk(
-  'user/checkAuth',
-  async () => {
-    try {
-      const response = await axios.get(`${config.url}/refresh`, { withCredentials: true });
-      const { accessToken, user } = response.data;
-      localStorage.setItem('token', accessToken);
+export const checkAuth = createAsyncThunk('user/checkAuth', async () => {
+  try {
+    const response = await axios.get(`${config.url}/refresh`, { withCredentials: true });
+    const { accessToken, user } = response.data;
+    localStorage.setItem('token', accessToken);
 
-      return user;
-    } catch (e) {
-      console.log(e);
-      throw e;
-    }
+    return user;
+  } catch (e) {
+    console.log(e);
+    throw e;
   }
-);
+});
 
 const userSlice = createSlice({
   name: 'user',
@@ -61,28 +58,27 @@ const userSlice = createSlice({
       state.user.followers = action.payload;
     }
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(PURGE, () => initialState);
-    builder.addCase(checkAuth.pending, (state) => {
-      // здесь можно обновить стейт при начале запроса
+    builder.addCase(checkAuth.pending, state => {
+      // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
       state.loading = true;
     });
     builder.addCase(checkAuth.fulfilled, (state, action) => {
-      // здесь можно обновить стейт при успешном завершении запроса
+      // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
       state.loading = false;
-      state.user = action.payload || {}; // получаем данные пользователя из payload
+      state.user = action.payload || {}; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ payload
       state.user.isAuth = true;
     });
     builder.addCase(checkAuth.rejected, (state, action) => {
-      // здесь можно обновить стейт при ошибке запроса
+      // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
       state.loading = false;
       state.error = action.error.message;
     });
   }
 });
 
-export const {
-  setEmail, setUser, setAuth, setAvatar, setFollowing, setFollowers
-} = userSlice.actions;
+export const { setEmail, setUser, setAuth, setAvatar, setFollowing, setFollowers } =
+  userSlice.actions;
 
 export default userSlice.reducer;

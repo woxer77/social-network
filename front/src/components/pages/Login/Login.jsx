@@ -29,43 +29,34 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const mutateHook = useMutation(
-    ['login'],
-    (data) => login(data.email, data.password),
-    {
-      onSuccess(res) {
-        const { user } = res.data;
-        const { accessToken } = res.data;
-        console.log('onSuccess');
+  const mutateHook = useMutation(['login'], data => login(data.email, data.password), {
+    onSuccess(res) {
+      const { user } = res.data;
+      const { accessToken } = res.data;
 
-        localStorage.setItem('token', accessToken);
+      localStorage.setItem('token', accessToken);
 
-        dispatch(setUser(user));
-        dispatch(setAuth(true));
-        navigate('/');
-      },
-      onError(error) {
-        activateAlert(isAlertActive, setIsAlertActive, error, setErrorMessage, 3000);
-      }
+      dispatch(setUser(user));
+      dispatch(setAuth(true));
+      navigate('/');
+    },
+    onError(error) {
+      activateAlert(isAlertActive, setIsAlertActive, error, setErrorMessage, 3000);
     }
-  );
+  });
 
-  const onFormSubmit = async (data) => {
+  const onFormSubmit = async data => {
     const localData = { ...data };
 
     mutateHook.mutate(localData);
   };
-  console.log('login page');
+
   return (
     <>
       <Alert isAlertActive={isAlertActive} errorMessage={errorMessage} />
       <div className={styles['main-container']}>
-        <p className={styles.title}>
-          Sign In
-        </p>
-        <p className={styles.text}>
-          Welcome back, you&apos;ve been missed!
-        </p>
+        <p className={styles.title}>Sign In</p>
+        <p className={styles.text}>Welcome back, you&apos;ve been missed!</p>
         <div className={styles['form-wrapper']}>
           {/* <div className={styles['buttons-wrapper']}>
             <button type="button" className={styles['auth-button']}>
@@ -90,20 +81,34 @@ function Login() {
             onSubmit={onFormSubmit}
             validationSchema={schema}
           >
-            {({
-              handleSubmit
-            }) => (
+            {({ handleSubmit }) => (
               <Form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles['default-fields-wrapper']}>
-                  <FormikField name="email" type="email" iconId="email" placeholder="Your Email" />
-                  <FormikField name="password" type="password" iconId="password" placeholder="Create Password" />
+                  <FormikField
+                    name="email"
+                    type="email"
+                    iconId="email"
+                    placeholder="Your Email (email for test: test@gmail.com)"
+                  />
+                  <FormikField
+                    name="password"
+                    type="password"
+                    iconId="password"
+                    placeholder="Create Password (password for test: Qwerty123!)"
+                  />
                 </div>
                 <FilledButton customClassName={styles.submit}>
-                  {mutateHook.isLoading ? <CircularProgress color="inherit" size={30} /> : 'Sign In'}
+                  {mutateHook.isLoading ? (
+                    <CircularProgress color="inherit" size={30} />
+                  ) : (
+                    'Sign In'
+                  )}
                 </FilledButton>
                 <div className={styles['sign-in']}>
                   <p className={styles.text}>You haven&apos;t any account?</p>
-                  <Link className="link" to="/auth/registration">Sign Up</Link>
+                  <Link className="link" to="/auth/registration">
+                    Sign Up
+                  </Link>
                 </div>
               </Form>
             )}

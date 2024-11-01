@@ -25,11 +25,14 @@ function convertUTCToLocal(UTCDate, UTCTime) {
   const [year, month, day] = UTCDate.split('-');
   const [hour, minute, second] = UTCTime.split(':');
 
-  const localDateString = new Date(Date.UTC(year, month - 1, day, hour, minute, second)).toLocaleString();
+  const localDateString = new Date(
+    Date.UTC(year, month - 1, day, hour, minute, second)
+  ).toLocaleString();
+
   // eslint-disable-next-line prefer-const
   let [localDate, localTime] = localDateString.split(',');
 
-  const [localDay, localMonth, localYear] = localDate.split('.');
+  const [localDay, localMonth, localYear] = localDate.split(/[.\-/]/);
   localDate = `${localYear}-${localMonth}-${localDay}`;
 
   return { localDate, localTime };
@@ -104,5 +107,9 @@ function convertTime(ms) {
 }
 
 export {
-  convertDateToValidFormat, convertTimeToValidFormat, convertTime, getCurrentUTCDateTime, convertUTCToLocal
+  convertDateToValidFormat,
+  convertTimeToValidFormat,
+  convertTime,
+  getCurrentUTCDateTime,
+  convertUTCToLocal
 };

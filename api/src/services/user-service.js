@@ -40,7 +40,10 @@ module.exports = {
       followers: user.followers
     };
 
-    await mailService.sendActivationLink(email, `${config.apiUrl}/email-activation/${activationLink}`);
+    await mailService.sendActivationLink(
+      email,
+      `${config.apiUrl}/email-activation/${activationLink}`
+    );
     const tokens = tokenService.generateTokens(userPayload);
     await tokenService.saveToken(user.user_id, tokens.refreshToken);
 
@@ -73,7 +76,7 @@ module.exports = {
       email: user.email,
       firstName: user.first_name,
       secondName: user.second_name,
-      avatar: user.avatar,
+      avatar: user.avatar || 'default-user-image.png',
       dateOfBirth: user.date_of_birth,
       gender: user.gender,
       isEmailActivated: user.is_email_activated,
@@ -137,7 +140,7 @@ module.exports = {
       throw ApiError.BadRequest('Users with this ids were not found.');
     }
 
-    const usersPayload = users.map((user) => ({
+    const usersPayload = users.map(user => ({
       userId: user.user_id,
       email: user.email,
       firstName: user.first_name,
@@ -168,13 +171,16 @@ module.exports = {
   async updateUser(userId, data) {
     const candidate = await userDbService.getUserByEmail(data.email);
 
-    if (candidate && (candidate.email === data.email && candidate.user_id !== userId)) {
+    if (candidate && candidate.email === data.email && candidate.user_id !== userId) {
       throw ApiError.BadRequest('User with this email already exists.');
     } else {
       const activationLink = uuid.v4();
       data.is_email_activated = false;
       data.activation_link = activationLink;
-      await mailService.sendActivationLink(data.email, `${config.apiUrl}/email-activation/${activationLink}`);
+      await mailService.sendActivationLink(
+        data.email,
+        `${config.apiUrl}/email-activation/${activationLink}`
+      );
     }
 
     if (!data.password) {
@@ -201,5 +207,5 @@ module.exports = {
     const userFollowers = await userDbService.getUserFollowers(userId);
 
     return userFollowers;
-  },
+  }
 };

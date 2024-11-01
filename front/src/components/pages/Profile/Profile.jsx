@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import styles from './Profile.module.scss';
 import Header from '../../elements/Header/Header';
 import LeftSidebar from '../../elements/LeftSidebar/LeftSidebar';
-import { url } from '../../../configs/config';
+import { defaultAvatar, defaultCoverPhoto, url } from '../../../configs/config';
 
 import profileProps from '../../../propTypes/Profile/profileProps';
 import ProfileSvgSelector from '../../../assets/images/icons/profile/ProfileSvgSelector';
@@ -27,7 +27,18 @@ import Follow from '../../UI/Follow/Follow';
 /* eslint-disable no-unused-vars, consistent-return */
 
 function Profile({
-  userId, firstName, secondName, email, dateOfBirth, gender, country, phone, avatar, coverPhoto, followers, following
+  userId,
+  firstName,
+  secondName,
+  email,
+  dateOfBirth,
+  gender,
+  country,
+  phone,
+  avatar,
+  coverPhoto,
+  followers,
+  following
 }) {
   const introArr = [
     {
@@ -62,7 +73,7 @@ function Profile({
   const fileInputCoverPhotoRef = React.useRef();
   const fileInputAvatarRef = React.useRef();
 
-  const user = useSelector((state) => state.userReducer.user);
+  const user = useSelector(state => state.userReducer.user);
   const dispatch = useDispatch();
 
   const handleCoverPhotoClick = () => {
@@ -75,9 +86,9 @@ function Profile({
 
   const mutateUpdateCoverPhotoHook = useMutation(
     ['updateUserCoverPhoto', userId],
-    (filename) => updateUserCoverPhoto({ userId, filename }),
+    filename => updateUserCoverPhoto({ userId, filename }),
     {
-      onSuccess: (res) => {
+      onSuccess: res => {
         setCoverPhotoState(res.data[0].cover_photo);
       }
     }
@@ -85,31 +96,31 @@ function Profile({
 
   const mutateUpdateAvatarHook = useMutation(
     ['updateUserAvatar', userId],
-    (filename) => updateUserAvatar({ userId, filename }),
+    filename => updateUserAvatar({ userId, filename }),
     {
-      onSuccess: (res) => {
+      onSuccess: res => {
         const resAvatar = res.data[0].avatar;
 
         setAvatarState(resAvatar);
         dispatch(setAvatar(resAvatar));
       },
-      onError: (err) => {
+      onError: err => {
         console.log('avatar uploading error:', err);
       }
     }
   );
 
-  const onFormSubmitCoverPhoto = async (filename) => {
+  const onFormSubmitCoverPhoto = async filename => {
     mutateUpdateCoverPhotoHook.mutate(filename);
   };
 
-  const onFormSubmitAvatar = async (filename) => {
+  const onFormSubmitAvatar = async filename => {
     mutateUpdateAvatarHook.mutate(filename);
   };
 
   const mutateCoverPhotoHook = useMutation(
     ['uploadImageCoverPhoto'],
-    (data) => uploadImageCoverPhoto(data),
+    data => uploadImageCoverPhoto(data),
     {
       onSuccess(res) {
         onFormSubmitCoverPhoto(res.data.filename);
@@ -117,15 +128,11 @@ function Profile({
     }
   );
 
-  const mutateAvatarHook = useMutation(
-    ['uploadImageAvatar'],
-    (data) => uploadImageAvatar(data),
-    {
-      onSuccess(res) {
-        onFormSubmitAvatar(res.data.filename);
-      }
+  const mutateAvatarHook = useMutation(['uploadImageAvatar'], data => uploadImageAvatar(data), {
+    onSuccess(res) {
+      onFormSubmitAvatar(res.data.filename);
     }
-  );
+  });
 
   const onUploadImage = (file, fieldName, mutateHook) => {
     const formData = new FormData();
@@ -133,11 +140,11 @@ function Profile({
     mutateHook.mutate(formData);
   };
 
-  const onUploadImageCoverPhoto = (file) => {
+  const onUploadImageCoverPhoto = file => {
     onUploadImage(file, 'cover-photo', mutateCoverPhotoHook);
   };
 
-  const onUploadImageAvatar = (file) => {
+  const onUploadImageAvatar = file => {
     onUploadImage(file, 'avatar', mutateAvatarHook);
   };
 
@@ -149,8 +156,14 @@ function Profile({
     const file = e.target.files[0];
     const reader = new FileReader();
 
-    if (!file || (!file.type.match(FILE_TYPE_IMAGE) || file.size > MAX_UPLOAD_IMAGE_SIZE)) {
-      activateAlert(isAlertActive, setIsAlertActive, 'Wrong file format or size', setErrorMessage, 3000);
+    if (!file || !file.type.match(FILE_TYPE_IMAGE) || file.size > MAX_UPLOAD_IMAGE_SIZE) {
+      activateAlert(
+        isAlertActive,
+        setIsAlertActive,
+        'Wrong file format or size',
+        setErrorMessage,
+        3000
+      );
     } else {
       onUploadImageLocal(file);
       reader.readAsDataURL(file);
@@ -175,17 +188,28 @@ function Profile({
       <div className={styles.profile}>
         <div className={styles.top}>
           <div className={styles['cover-photo']}>
-            <img src={`${url}/images/${coverPhotoState}`} alt="cover" />
+            <img src={`${url}/images/${coverPhotoState || defaultCoverPhoto}`} alt="cover" />
           </div>
           <div className={styles.info}>
-            <div className={styles.avatar} onClick={userId === user.userId ? handleAvatarClick : () => {}}>
-              <img src={`${url}/images/${coverAvatarState}`} alt={`avatar-user-${userId}`} />
+            <div
+              className={styles.avatar}
+              onClick={userId === user.userId ? handleAvatarClick : () => {}}
+            >
+              <img
+                src={`${url}/images/${coverAvatarState || defaultAvatar}`}
+                alt={`avatar-user-${userId}`}
+              />
               {userId === user.userId && (
                 <>
                   <div className={styles['icon-wrapper']}>
                     <ProfileSvgSelector id="upload" />
                   </div>
-                  <input type="file" hidden onChange={(e) => handleChangeFile(e, onUploadImageAvatar)} ref={fileInputAvatarRef} />
+                  <input
+                    type="file"
+                    hidden
+                    onChange={e => handleChangeFile(e, onUploadImageAvatar)}
+                    ref={fileInputAvatarRef}
+                  />
                 </>
               )}
             </div>
@@ -193,32 +217,52 @@ function Profile({
               <div className={styles.name}>
                 {firstName} {secondName}
               </div>
-              <p className={styles.followers}>
-                <p><span className={styles.number}>{followers.length}</span> {followers.length > 1 ? 'followers' : 'follower'}</p>
-                <p><span className={styles.number}>{following.length}</span> {following.length > 1 ? 'following' : 'following'}</p>
-              </p>
+              <div className={styles.followers}>
+                <p>
+                  <span className={styles.number}>{followers.length}</span>{' '}
+                  {followers.length > 1 ? 'followers' : 'follower'}
+                </p>
+                <p>
+                  <span className={styles.number}>{following.length}</span>{' '}
+                  {following.length > 1 ? 'following' : 'following'}
+                </p>
+              </div>
             </div>
-            { userId === user.userId && (
-              <button type="button" className={styles['edit-cover-photo']} onClick={handleCoverPhotoClick}>
+            {userId === user.userId && (
+              <button
+                type="button"
+                className={styles['edit-cover-photo']}
+                onClick={handleCoverPhotoClick}
+              >
                 <ProfileSvgSelector id="upload" />
                 <p>Edit Cover Photo</p>
-                <input type="file" hidden onChange={(e) => handleChangeFile(e, onUploadImageCoverPhoto)} ref={fileInputCoverPhotoRef} />
+                <input
+                  type="file"
+                  hidden
+                  onChange={e => handleChangeFile(e, onUploadImageCoverPhoto)}
+                  ref={fileInputCoverPhotoRef}
+                />
               </button>
             )}
-            { userId === user.userId && (
-              <button type="button" className={`${styles['right-button']} ${styles['edit-basic-info']}`} onClick={activateEditModal}>
+            {userId === user.userId && (
+              <button
+                type="button"
+                className={`${styles['right-button']} ${styles['edit-basic-info']}`}
+                onClick={activateEditModal}
+              >
                 Edit basic info
               </button>
             )}
-            { userId !== user.userId && (
+            {userId !== user.userId && (
               <Follow
                 customClassName={`${styles['right-button']} ${isFriend ? styles.followed : ''}`}
                 followTo={userId}
                 action={isFriend ? 'unfollow' : 'follow'}
-              >{isFriend ? 'Unfollow' : 'Follow'}
+              >
+                {isFriend ? 'Unfollow' : 'Follow'}
               </Follow>
-            ) }
-            { isEditModalActive && (
+            )}
+            {isEditModalActive && (
               <EditProfileModal
                 userId={userId}
                 firstName={firstName}
@@ -231,7 +275,7 @@ function Profile({
                 isEditModalActive={isEditModalActive}
                 setIsEditModalActive={setIsEditModalActive}
               />
-            ) }
+            )}
           </div>
         </div>
         <div className={styles.bottom}>
@@ -239,7 +283,7 @@ function Profile({
             <div className={styles.intro}>
               <p className={styles.title}>Intro</p>
               <div className={styles.elements}>
-                {introArr.map((element) => (
+                {introArr.map(element => (
                   <div className={styles.element} key={`user-${userId}-${element.iconId}`}>
                     <ProfileSvgSelector id={element.iconId} />
                     <p className={styles['element-text']}>{element.text || 'Unknown'}</p>
@@ -249,7 +293,7 @@ function Profile({
             </div>
           </div>
           <div className={styles.posts}>
-            { userId === user.userId && <PostAddingContainer /> }
+            {userId === user.userId && <PostAddingContainer />}
             <div className={styles['posts-wrapper']}>
               <MyPostsContainer userId={userId} />
             </div>

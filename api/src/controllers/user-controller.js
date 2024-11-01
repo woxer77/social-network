@@ -1,7 +1,7 @@
 const userService = require('../services/user-service');
 const config = require('../configs/config');
 const tokenTimelineToMs = require('../helpers/tokenTimelineToMs');
-// какие-то данные принимает, и какие-то данные отдаёт сервисам с бизнес логикой
+// пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 module.exports = {
   async getUserById(req, res, next) {
     try {
@@ -103,14 +103,22 @@ module.exports = {
 
   async registration(req, res, next) {
     try {
-      const {
-        email, password, firstName, secondName, dateOfBirth, gender
-      } = req.body;
-      const userData = await userService.registration(email, password, firstName, secondName, dateOfBirth, gender);
+      const { email, password, firstName, secondName, dateOfBirth, gender } = req.body;
+      const userData = await userService.registration(
+        email,
+        password,
+        firstName,
+        secondName,
+        dateOfBirth,
+        gender
+      );
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
 
       res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
+        maxAge: refreshMaxAge,
+        httpOnly: true,
+        secure: config.developmentStage === 'production',
+        sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
       });
 
       return res.json(userData);
@@ -126,7 +134,10 @@ module.exports = {
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
 
       res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
+        maxAge: refreshMaxAge,
+        httpOnly: true,
+        secure: config.developmentStage === 'production',
+        sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
       });
 
       return res.json(userData);
@@ -164,7 +175,10 @@ module.exports = {
       const userData = await userService.refresh(refreshToken);
       const refreshMaxAge = tokenTimelineToMs(config.refreshTokenTimeline);
       res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: refreshMaxAge, httpOnly: true, secure: config.developmentStage === 'production', sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
+        maxAge: refreshMaxAge,
+        httpOnly: true,
+        secure: config.developmentStage === 'production',
+        sameSite: config.developmentStage === 'production' ? 'none' : 'strict'
       });
 
       return res.json(userData);
@@ -187,7 +201,6 @@ module.exports = {
   async uploadSingle(req, res, next) {
     try {
       if (req.file) {
-        console.log('in uploadSingle, req.file', req.file);
         return res.json(req.file);
       }
       return null;
