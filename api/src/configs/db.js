@@ -9,5 +9,9 @@ module.exports = require('knex')({
     password: config.dbPassword,
     database: config.dbDatabase,
     ssl: true
+  },
+  pool: {
+    min: 2,
+    max: 10
   }
 });
